@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wiseml version="1.0" xmlns="http://wisebed.eu/ns/wiseml/1.0">
+ <setup>
+  <origin>
+   <x>0</x>
+   <y>0</y>
+  </origin>
+  <timeinfo>
+   <start>2011-07-28T17:27:47+0200</start>
+   <duration>6</duration>
+   <unit>packets</unit>
+  </timeinfo>
+  <description>Radio Monitoring Tool - Measurement: Measurement 0</description>
+  <defaults>
+   <node>
+    <position>
+     <x>0</x>
+     <y>0</y>
+    </position>
+    <nodeType>Crossbow Telos Rev.B</nodeType>
+    <capability>
+     <name>Packet#</name>
+     <datatype>float</datatype>
+     <unit></unit>
+     <default>0.0</default>
+    </capability>
+    <capability>
+     <name>ReceiverID</name>
+     <datatype>float</datatype>
+     <unit></unit>
+     <default>0.0</default>
+    </capability>
+    <capability>
+     <name>Noisefloor</name>
+     <datatype>float</datatype>
+     <unit></unit>
+     <default>0.0</default>
+    </capability>
+    <capability>
+     <name>RSSI</name>
+     <datatype>float</datatype>
+     <unit></unit>
+     <default>0.0</default>
+    </capability>
+    <capability>
+     <name>SenderID</name>
+     <datatype>float</datatype>
+     <unit></unit>
+     <default>0.0</default>
+    </capability>
+   </node>
+  </defaults>
+  <node id="urn:wisebed:node:uzl:1"/>
+  <node id="urn:wisebed:node:uzl:2"/>
+ </setup>
+ <trace id="0">
+  <timestamp>0</timestamp>
+  <node id="urn:wisebed:node:uzl:1">
+   <position>
+    <x>0</x>
+    <y>0</y>
+   </position>
+   <data key="Packet#">1.0</data>
+   <data key="ReceiverID">0.5248297</data>
+   <data key="Noisefloor">0.96312267</data>
+   <data key="RSSI">28.380384</data>
+   <data key="SenderID">1.5005903</data>
+  </node>
+  <timestamp>1</timestamp>
+  <node id="urn:wisebed:node:uzl:2">
+   <position>
+    <x>0</x>
+    <y>0</y>
+   </position>
+   <data key="Packet#">2.0</data>
+   <data key="ReceiverID">0.9888397</data>
+   <data key="Noisefloor">6.8129487</data>
+   <data key="RSSI">10.012398</data>
+   <data key="SenderID">2.726729</data>
+  </node>
+  <timestamp>2</timestamp>
+  <node id="urn:wisebed:node:uzl:2">
+   <position>
+    <x>0</x>
+    <y>0</y>
+   </position>
+   <data key="Packet#">3.0</data>
+   <data key="ReceiverID">1.8781621</data>
+   <data key="Noisefloor">12.585519</data>
+   <data key="RSSI">17.529436</data>
+   <data key="SenderID">2.0842295</data>
+  </node>
+  <timestamp>3</timestamp>
+  <node id="urn:wisebed:node:uzl:2">
+   <position>
+    <x>0</x>
+    <y>0</y>
+   </position>
+   <data key="Packet#">4.0</data>
+   <data key="ReceiverID">0.28927377</data>
+   <data key="Noisefloor">13.99665</data>
+   <data key="RSSI">5.3776875</data>
+   <data key="SenderID">2.9629245</data>
+  </node>
+  <timestamp>4</timestamp>
+  <node id="urn:wisebed:node:uzl:2">
+   <position>
+    <x>0</x>
+    <y>0</y>
+   </position>
+   <data key="Packet#">5.0</data>
+   <data key="ReceiverID">1.7532384</data>
+   <data key="Noisefloor">15.707979</data>
+   <data key="RSSI">28.242853</data>
+   <data key="SenderID">2.3523526</data>
+  </node>
+  <timestamp>5</timestamp>
+  <node id="urn:wisebed:node:uzl:1">
+   <position>
+    <x>0</x>
+    <y>0</y>
+   </position>
+   <data key="Packet#">6.0</data>
+   <data key="ReceiverID">0.054234143</data>
+   <data key="Noisefloor">7.01135</data>
+   <data key="RSSI">12.498231</data>
+   <data key="SenderID">1.7161126</data>
+  </node>
+ </trace>
+</wiseml>

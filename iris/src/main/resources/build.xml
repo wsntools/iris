@@ -1,0 +1,13 @@
+<project name="IMAC" default="build" basedir=".">
+  <target name="build" >
+    <javac includeantruntime="false" srcdir="." destdir="." >
+      <classpath>
+	<fileset dir="lib">
+	  <include name="**/*.jar" />
+	</fileset>
+      </classpath>
+      <include name="*.java" />
+      <include name="**/*.java" />
+    </javac>
+  </target>
+</project>

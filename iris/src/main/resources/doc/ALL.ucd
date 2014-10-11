@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="ALL" size="1806,1939" id="" metadata="uml2-1.0" initialized="true" scrolledY="1212" tag="1000" key="32303037303533312D3130303020526164696F4D6F6E69746F72696E67546F6F6C2F666967757261">
+  <children xsi:type="editmodel:ClassEditModel" name="RadioMonitoringTool" location="45,315" size="191,68" id="/RadioMonitoringTool" runTimeClassModel="main([Ljava.lang.String;)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="59,18">
+      <children xsi:type="editmodel:MethodEditModel" name="main" id="/RadioMonitoringTool#main([Ljava.lang.String;)"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="/RadioMonitoringTool-Standard::Instantiate->data/Model" source="//@children.0" target="//@children.1" targetEnd="//@children.0/@sourceConnections.0/@children.2" label="//@children.0/@sourceConnections.0/@children.0" sourceEnd="//@children.0/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Instantiate»" size="74,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="95,68" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="113,0"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="/RadioMonitoringTool-Standard::Call->views/ViewMain*/RadioMonitoringTool-Standard::Instantiate->views/ViewMain" source="//@children.0" target="//@children.2" targetEnd="//@children.0/@sourceConnections.1/@children.2" label="//@children.0/@sourceConnections.1/@children.0" sourceEnd="//@children.0/@sourceConnections.1/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Instantiate, Call»" size="103,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="143,68" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="27,0"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.0/@sourceConnections.0 //@children.2/@sourceConnections.1" name="Model" location="27,674" size="361,999" id="data/Model" runTimeClassModel="getListenOnStartup(),renameFunctionAttributeInMeasurement(Ljava.lang.String;Ljava.lang.String;),getMeasureAttributeValuesByName(Ljava.lang.String;ZZ),addFunctionAttributeToMeasurement(Ldata.FunctionAttribute;),getMeasureNonFunctionalAttributes(),getMeasureSortAscendingInfo(),registerObserver(Linterfaces.RMT_Observer;),getFixedAttributeCount(),clearMeasurePacketFilter(),getMeasureAttributeVisibility(),openPackageDecoder(),repackView(),addNewMeasurement(Ldata.Measurement;),removeFunctionAttributeFromMeasurement(Ldata.FunctionAttribute;),addNewMeasurement(Ljava.lang.String;),setRecordBufferSize(I),setCurrentMeasureIndex(I),getCurrentMeasurement(),getMeasureNormalAttributes(),getFunctionNames(),setMeasurePacketFilter(Ljava.util.Map;),addPacket(Ldata.Packet;),addPacket([Ldata.Packet;),checkAttributeName(Ljava.lang.String;),getMeasureInfoNames(),getMeasureInfoResult(),getMeasureAttributeCount(),setMeasureAttributeVisibility([Z),getFixedAttributes(),checkMeasureName(Ljava.lang.String;),getCurrentMeasureIndex(),logger,unregisterObserver(Linterfaces.RMT_Observer;),getRecordBufferSize(),getMeasurement(I),getNextMeasurementNumber(),sortMeasurementBy(Linterfaces.RMT_Attribute;Z),getMeasureAttribute(Ljava.lang.String;),getFunctionAttributesInMeasurement(),getMeasureAttributeValueStringsByName(Ljava.lang.String;ZZ),setMeasureName(ILjava.lang.String;),getMeasureAttributeValueStringsByNameNoDuplicates(Ljava.lang.String;),getMeasureAttribute(I),getFunctionInstanceByName(Ljava.lang.String;),removeMeasurement(I),Model(Z),updateFunctionAttributeInMeasurement(Ljava.lang.String;Ljava.lang.String;ZILinterfaces.RMT_FunctionModule;),getFixedAttribute(Ljava.lang.String;),setPackageManager(Lpanels.PanelPackageManager;),getMeasureSortAttributeName(),getPacketFilterValueInMeasure(Ljava.lang.String;),getMeasureCount()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="102,18">
+      <children xsi:type="editmodel:AttributeEditModel" name="logger" id="data/Model#logger"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="338,918">
+      <children xsi:type="editmodel:MethodEditModel" name="Model" id="data/Model#Model(Z)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="addFunctionAttributeToMeasurement" id="data/Model#addFunctionAttributeToMeasurement(Ldata.FunctionAttribute;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="addNewMeasurement" id="data/Model#addNewMeasurement(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="addNewMeasurement" id="data/Model#addNewMeasurement(Ldata.Measurement;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="setMeasurePacketFilter" id="data/Model#setMeasurePacketFilter(Ljava.util.Map;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="addPacket" id="data/Model#addPacket(Ldata.Packet;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="checkAttributeName" id="data/Model#checkAttributeName(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="checkMeasureName" id="data/Model#checkMeasureName(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="clearMeasurePacketFilter" id="data/Model#clearMeasurePacketFilter()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getCurrentMeasureIndex" id="data/Model#getCurrentMeasureIndex()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getCurrentMeasurement" id="data/Model#getCurrentMeasurement()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getFixedAttribute" id="data/Model#getFixedAttribute(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getFixedAttributeCount" id="data/Model#getFixedAttributeCount()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getFixedAttributes" id="data/Model#getFixedAttributes()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getFunctionAttributesInMeasurement" id="data/Model#getFunctionAttributesInMeasurement()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getFunctionInstanceByName" id="data/Model#getFunctionInstanceByName(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getFunctionNames" id="data/Model#getFunctionNames()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getListenOnStartup" id="data/Model#getListenOnStartup()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getMeasureAttribute" id="data/Model#getMeasureAttribute(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getMeasureAttribute" id="data/Model#getMeasureAttribute(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getMeasureAttributeCount" id="data/Model#getMeasureAttributeCount()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getMeasureAttributeValueStringsByName" id="data/Model#getMeasureAttributeValueStringsByName(Ljava.lang.String;ZZ)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getMeasureAttributeValueStringsByNameNoDuplicates" id="data/Model#getMeasureAttributeValueStringsByNameNoDuplicates(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getMeasureAttributeValuesByName" id="data/Model#getMeasureAttributeValuesByName(Ljava.lang.String;ZZ)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getMeasureAttributeVisibility" id="data/Model#getMeasureAttributeVisibility()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getMeasureCount" id="data/Model#getMeasureCount()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getMeasureInfoNames" id="data/Model#getMeasureInfoNames()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getMeasureInfoResult" id="data/Model#getMeasureInfoResult()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getMeasureNonFunctionalAttributes" id="data/Model#getMeasureNonFunctionalAttributes()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getMeasureNormalAttributes" id="data/Model#getMeasureNormalAttributes()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getMeasureSortAscendingInfo" id="data/Model#getMeasureSortAscendingInfo()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getMeasureSortAttributeName" id="data/Model#getMeasureSortAttributeName()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getMeasurement" id="data/Model#getMeasurement(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getNextMeasurementNumber" id="data/Model#getNextMeasurementNumber()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getPacketFilterValueInMeasure" id="data/Model#getPacketFilterValueInMeasure(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getRecordBufferSize" id="data/Model#getRecordBufferSize()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="openPackageDecoder" id="data/Model#openPackageDecoder()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="registerObserver" id="data/Model#registerObserver(Linterfaces.RMT_Observer;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="removeFunctionAttributeFromMeasurement" id="data/Model#removeFunctionAttributeFromMeasurement(Ldata.FunctionAttribute;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="removeMeasurement" id="data/Model#removeMeasurement(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="renameFunctionAttributeInMeasurement" id="data/Model#renameFunctionAttributeInMeasurement(Ljava.lang.String;Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="repackView" id="data/Model#repackView()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="setCurrentMeasureIndex" id="data/Model#setCurrentMeasureIndex(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="setMeasureAttributeVisibility" id="data/Model#setMeasureAttributeVisibility([Z)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="setMeasureName" id="data/Model#setMeasureName(ILjava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="addPacket" id="data/Model#addPacket([Ldata.Packet;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="setPackageManager" id="data/Model#setPackageManager(Lpanels.PanelPackageManager;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="setRecordBufferSize" id="data/Model#setRecordBufferSize(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="sortMeasurementBy" id="data/Model#sortMeasurementBy(Linterfaces.RMT_Attribute;Z)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="unregisterObserver" id="data/Model#unregisterObserver(Linterfaces.RMT_Observer;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="updateFunctionAttributeInMeasurement" id="data/Model#updateFunctionAttributeInMeasurement(Ljava.lang.String;Ljava.lang.String;ZILinterfaces.RMT_FunctionModule;)"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="views/ViewMain@view+data/Model@" source="//@children.1" target="//@children.2" targetEnd="//@children.1/@sourceConnections.0/@children.2" label="//@children.1/@sourceConnections.0/@children.0" sourceEnd="//@children.1/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:WireLabelEditModel" size="0,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="361,15" id="views/ViewMain@view+data/Model@|data/Model#" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="view" location="109,43" id="views/ViewMain@view+data/Model@|views/ViewMain#view" multiplicityLabel="//@children.1/@sourceConnections.0/@children.2/@children.1" roleLabel="//@children.1/@sourceConnections.0/@children.2/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" - view" location="320,500" size="37,13" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="0..1" location="371,500" size="22,13" anchorKind="LastPart"/>
+      </children>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="data/Model@model+views/ViewMain@" source="//@children.1" target="//@children.2" targetEnd="//@children.1/@sourceConnections.1/@children.2" label="//@children.1/@sourceConnections.1/@children.0" sourceEnd="//@children.1/@sourceConnections.1/@children.1" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:WireLabelEditModel" size="0,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="model" location="219,0" id="data/Model@model+views/ViewMain@|data/Model#model" attachSource="true" multiplicityLabel="//@children.1/@sourceConnections.1/@children.1/@children.1" roleLabel="//@children.1/@sourceConnections.1/@children.1/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" - model" location="192,654" size="47,13" anchorKind="FirstPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="0..1" location="253,654" size="22,13" anchorKind="FirstPart"/>
+      </children>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="35,43" id="data/Model@model+views/ViewMain@|views/ViewMain#" roleLabel="//@children.1/@sourceConnections.1/@children.2/@children.0">
+        <children xsi:type="editmodel:LabelEditModel" location="283,500" size="0,13" anchorKind="LastPart"/>
+      </children>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="data/Model-Standard::Call->views/ViewMain*data/Model-Soyatec::Import->views/ViewMain" source="//@children.1" target="//@children.2" targetEnd="//@children.1/@sourceConnections.2/@children.2" label="//@children.1/@sourceConnections.2/@children.0" sourceEnd="//@children.1/@sourceConnections.2/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Import, Call»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="209,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="25,43"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="data/Model-Standard::Instantiate->data/Measurement*data/Model-Soyatec::Import->data/Measurement*data/Model-Standard::Call->data/Measurement" source="//@children.1" target="//@children.3" targetEnd="//@children.1/@sourceConnections.3/@children.2" label="//@children.1/@sourceConnections.3/@children.0" sourceEnd="//@children.1/@sourceConnections.3/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Import, Call, Instantiate»" size="148,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="361,445" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,445"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="data/Model-Soyatec::Import->data/Packet" source="//@children.1" target="//@children.4" targetEnd="//@children.1/@sourceConnections.4/@children.2" label="//@children.1/@sourceConnections.4/@children.0" sourceEnd="//@children.1/@sourceConnections.4/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Import»" size="51,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="361,560" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,94"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="data/Model-Standard::Call->interfaces/RMT_Attribute*data/Model-Soyatec::Import->interfaces/RMT_Attribute*data/Model-Soyatec::Import->interfaces/RMT_Attribute" source="//@children.1" target="//@children.5" targetEnd="//@children.1/@sourceConnections.5/@children.2" label="//@children.1/@sourceConnections.5/@children.0" sourceEnd="//@children.1/@sourceConnections.5/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Import, Call»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="361,927" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,71"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="data/Model-Standard::Call->interfaces/RMT_MeasureInfo*data/Model-Soyatec::Import->interfaces/RMT_MeasureInfo*data/Model-Soyatec::Import->interfaces/RMT_MeasureInfo" source="//@children.1" target="//@children.6" targetEnd="//@children.1/@sourceConnections.6/@children.2" label="//@children.1/@sourceConnections.6/@children.0" sourceEnd="//@children.1/@sourceConnections.6/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Import, Call»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="361,312" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,56"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="data/Model-Soyatec::Import->interfaces/RMT_Observer*data/Model-Standard::Call->interfaces/RMT_Observer" source="//@children.1" target="//@children.7" targetEnd="//@children.1/@sourceConnections.7/@children.2" label="//@children.1/@sourceConnections.7/@children.0" sourceEnd="//@children.1/@sourceConnections.7/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Import, Call»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="361,57" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="45,184"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="interfaces/RMT_Attribute@sorted_by+data/Model@" source="//@children.1" target="//@children.5" targetEnd="//@children.1/@sourceConnections.8/@children.2" label="//@children.1/@sourceConnections.8/@children.0" sourceEnd="//@children.1/@sourceConnections.8/@children.1" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:WireLabelEditModel" size="0,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="361,907" id="interfaces/RMT_Attribute@sorted_by+data/Model@|data/Model#" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="sorted_by" location="0,41" id="interfaces/RMT_Attribute@sorted_by+data/Model@|interfaces/RMT_Attribute#sorted_by" multiplicityLabel="//@children.1/@sourceConnections.8/@children.2/@children.1" roleLabel="//@children.1/@sourceConnections.8/@children.2/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" - sorted_by" location="447,1551" size="68,13" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="1" location="508,1578" size="7,13" anchorKind="LastPart"/>
+      </children>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="interfaces/RMT_Attribute@attributes+data/Model@" source="//@children.1" target="//@children.5" targetEnd="//@children.1/@sourceConnections.9/@children.2" label="//@children.1/@sourceConnections.9/@children.0" sourceEnd="//@children.1/@sourceConnections.9/@children.1" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:WireLabelEditModel" size="0,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="361,947" id="interfaces/RMT_Attribute@attributes+data/Model@|data/Model#" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="attributes" location="0,93" id="interfaces/RMT_Attribute@attributes+data/Model@|interfaces/RMT_Attribute#attributes" multiplicityLabel="//@children.1/@sourceConnections.9/@children.2/@children.1" roleLabel="//@children.1/@sourceConnections.9/@children.2/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" - attributes" location="448,1630" size="67,13" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="*" location="509,1603" size="6,13" anchorKind="LastPart"/>
+      </children>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="interfaces/RMT_MeasureInfo@measureInfos+data/Model@" source="//@children.1" target="//@children.6" targetEnd="//@children.1/@sourceConnections.10/@children.2" label="//@children.1/@sourceConnections.10/@children.0" sourceEnd="//@children.1/@sourceConnections.10/@children.1" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:WireLabelEditModel" size="0,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="361,292" id="interfaces/RMT_MeasureInfo@measureInfos+data/Model@|data/Model#" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="measureInfos" location="0,26" id="interfaces/RMT_MeasureInfo@measureInfos+data/Model@|interfaces/RMT_MeasureInfo#measureInfos" multiplicityLabel="//@children.1/@sourceConnections.10/@children.2/@children.1" roleLabel="//@children.1/@sourceConnections.10/@children.2/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" - measureInfos" location="442,1167" size="91,13" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="*" location="527,1140" size="6,13" anchorKind="LastPart"/>
+      </children>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.0/@sourceConnections.1 //@children.1/@sourceConnections.0 //@children.1/@sourceConnections.1 //@children.1/@sourceConnections.2 //@children.2/@sourceConnections.0" name="ViewMain" location="255,450" size="112,43" id="views/ViewMain" runTimeClassModel="SafeCloseOperation(),SafeCloseOperation(Z),views.ViewMain.ViewWindowListener,ViewMain(Ldata.Model;)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="views/ViewMain@ref+views/ViewMain@" source="//@children.2" target="//@children.2" targetEnd="//@children.2/@sourceConnections.0/@children.2" label="//@children.2/@sourceConnections.0/@children.0" sourceEnd="//@children.2/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:WireLabelEditModel" size="0,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="ref" location="0,1" id="views/ViewMain@ref+views/ViewMain@|views/ViewMain#ref" anchorKind="FixedAtEdge" attachSource="true" multiplicityLabel="//@children.2/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.2/@sourceConnections.0/@children.1/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" - ref" location="220,458" size="28,13" anchorKind="FirstPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="1" location="241,431" size="7,13" anchorKind="FirstPart"/>
+      </children>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="5,0" id="views/ViewMain@ref+views/ViewMain@|views/ViewMain#" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="views/ViewMain-Standard::Call->data/Model*views/ViewMain-Soyatec::Import->data/Model" source="//@children.2" target="//@children.1" targetEnd="//@children.2/@sourceConnections.1/@children.2" label="//@children.2/@sourceConnections.1/@children.0" sourceEnd="//@children.2/@sourceConnections.1/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Import, Call»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="55,43" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="283,0"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="views/ViewMain-Soyatec::Import->panels/PanelGraph*views/ViewMain-Standard::Instantiate->panels/PanelGraph" source="//@children.2" target="//@children.9" targetEnd="//@children.2/@sourceConnections.2/@children.2" label="//@children.2/@sourceConnections.2/@children.0" sourceEnd="//@children.2/@sourceConnections.2/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Import, Instantiate»" size="119,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="112,37" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,112"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="views/ViewMain-Soyatec::Access->panels/PanelPackageManager*views/ViewMain-Standard::Instantiate->panels/PanelPackageManager*views/ViewMain-Soyatec::Import->panels/PanelPackageManager" source="//@children.2" target="//@children.10" targetEnd="//@children.2/@sourceConnections.3/@children.2" label="//@children.2/@sourceConnections.3/@children.0" sourceEnd="//@children.2/@sourceConnections.3/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Import, Instantiate, Access»" size="167,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="112,21" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,111"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.1/@sourceConnections.3 //@children.6/@sourceConnections.0" name="Measurement" location="827,674" size="312,891" id="data/Measurement" runTimeClassModel="addFunctionAttribute(Ldata.FunctionAttribute;),setPacketFilter(Ljava.util.Map;),sortPackets(Linterfaces.RMT_Attribute;Z),getAddress(),getNumberOfFilterPassingPackets(),getNumberOfPackets(),getPacketAt(I),getAttribute(Ljava.lang.String;),getMessage(Ljava.lang.String;),addNeighbour(IJ),getYAxis(),getPacketFilterValue(Ljava.lang.String;),getNormalAttributes(),logSendMessage(),getAttributeValueStringsByNameNoDuplicates(Ljava.lang.String;),removeFunctionAttribute(Ldata.FunctionAttribute;),getMsgNames(Z),getAttributeCount(),getActualMessageW(),getPacketPassingFilterAt(I),sendLog,getNonFunctionalAttributes(),getAttributeValuesByName(Ljava.lang.String;ZZ),getSortAscendingInfo(),logSendMessage(Lextensions.MessageWrapper;),getAllPacketsInOrder(),getSortAttributeName(),Measurement(ILjava.lang.String;[Linterfaces.RMT_Attribute;),getMeasureNumber(),getMessageWrapper(Ljava.lang.String;),setMeasureName(Ljava.lang.String;),clearPacketFilter(),getAttribute(I),getActualMessageName(),addMsg(Lextensions.MessageWrapper;),getAttributeVisibility(),addPacket(Ldata.Packet;),getNeighbourlist(J),sortPackets(Ldata.Packet;),setAttributeVisibility([Z),addPacket([Ldata.Packet;),msges,setYAxis(Linterfaces.RMT_Attribute;),getAttributeValueStringsByName(Ljava.lang.String;ZZ),getFunctionAttributes(),getMeasureName()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="272,36">
+      <children xsi:type="editmodel:AttributeEditModel" name="msges" id="data/Measurement#msges"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="sendLog" id="data/Measurement#sendLog"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="289,792">
+      <children xsi:type="editmodel:MethodEditModel" name="Measurement" id="data/Measurement#Measurement(ILjava.lang.String;[Linterfaces.RMT_Attribute;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="addFunctionAttribute" id="data/Measurement#addFunctionAttribute(Ldata.FunctionAttribute;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="addMsg" id="data/Measurement#addMsg(Lextensions.MessageWrapper;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="addNeighbour" id="data/Measurement#addNeighbour(IJ)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="addPacket" id="data/Measurement#addPacket(Ldata.Packet;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="addPacket" id="data/Measurement#addPacket([Ldata.Packet;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="clearPacketFilter" id="data/Measurement#clearPacketFilter()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getActualMessageName" id="data/Measurement#getActualMessageName()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getActualMessageW" id="data/Measurement#getActualMessageW()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getAddress" id="data/Measurement#getAddress()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getAllPacketsInOrder" id="data/Measurement#getAllPacketsInOrder()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getAttribute" id="data/Measurement#getAttribute(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getAttribute" id="data/Measurement#getAttribute(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getAttributeCount" id="data/Measurement#getAttributeCount()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getAttributeValueStringsByName" id="data/Measurement#getAttributeValueStringsByName(Ljava.lang.String;ZZ)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getAttributeValueStringsByNameNoDuplicates" id="data/Measurement#getAttributeValueStringsByNameNoDuplicates(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getAttributeValuesByName" id="data/Measurement#getAttributeValuesByName(Ljava.lang.String;ZZ)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getAttributeVisibility" id="data/Measurement#getAttributeVisibility()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getFunctionAttributes" id="data/Measurement#getFunctionAttributes()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getMeasureName" id="data/Measurement#getMeasureName()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getMeasureNumber" id="data/Measurement#getMeasureNumber()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getMessage" id="data/Measurement#getMessage(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getMessageWrapper" id="data/Measurement#getMessageWrapper(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getMsgNames" id="data/Measurement#getMsgNames(Z)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getNeighbourlist" id="data/Measurement#getNeighbourlist(J)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getNonFunctionalAttributes" id="data/Measurement#getNonFunctionalAttributes()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getNormalAttributes" id="data/Measurement#getNormalAttributes()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getNumberOfFilterPassingPackets" id="data/Measurement#getNumberOfFilterPassingPackets()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getNumberOfPackets" id="data/Measurement#getNumberOfPackets()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getPacketAt" id="data/Measurement#getPacketAt(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getPacketFilterValue" id="data/Measurement#getPacketFilterValue(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getPacketPassingFilterAt" id="data/Measurement#getPacketPassingFilterAt(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getSortAscendingInfo" id="data/Measurement#getSortAscendingInfo()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getSortAttributeName" id="data/Measurement#getSortAttributeName()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getYAxis" id="data/Measurement#getYAxis()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="logSendMessage" id="data/Measurement#logSendMessage(Lextensions.MessageWrapper;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="logSendMessage" id="data/Measurement#logSendMessage()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="removeFunctionAttribute" id="data/Measurement#removeFunctionAttribute(Ldata.FunctionAttribute;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="setAttributeVisibility" id="data/Measurement#setAttributeVisibility([Z)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="setMeasureName" id="data/Measurement#setMeasureName(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="setPacketFilter" id="data/Measurement#setPacketFilter(Ljava.util.Map;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="setYAxis" id="data/Measurement#setYAxis(Linterfaces.RMT_Attribute;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="sortPackets" id="data/Measurement#sortPackets(Ldata.Packet;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="sortPackets" id="data/Measurement#sortPackets(Linterfaces.RMT_Attribute;Z)"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="interfaces/RMT_Attribute@yAxis+data/Measurement@" source="//@children.3" target="//@children.5" targetEnd="//@children.3/@sourceConnections.0/@children.2" label="//@children.3/@sourceConnections.0/@children.0" sourceEnd="//@children.3/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:WireLabelEditModel" size="0,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,873" id="interfaces/RMT_Attribute@yAxis+data/Measurement@|data/Measurement#" attachSource="true" roleLabel="//@children.3/@sourceConnections.0/@children.1/@children.0">
+        <children xsi:type="editmodel:LabelEditModel" location="820,1704" size="0,13" anchorKind="FirstPart"/>
+      </children>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="yAxis" location="149,17" id="interfaces/RMT_Attribute@yAxis+data/Measurement@|interfaces/RMT_Attribute#yAxis" multiplicityLabel="//@children.3/@sourceConnections.0/@children.2/@children.1" roleLabel="//@children.3/@sourceConnections.0/@children.2/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" - yAxis" location="687,1527" size="41,13" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="1" location="687,1554" size="7,13" anchorKind="LastPart"/>
+      </children>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="data/Packet@arrPacketsSorted+data/Measurement@" source="//@children.3" target="//@children.4" targetEnd="//@children.3/@sourceConnections.1/@children.2" label="//@children.3/@sourceConnections.1/@children.0" sourceEnd="//@children.3/@sourceConnections.1/@children.1" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:WireLabelEditModel" size="0,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,560" id="data/Packet@arrPacketsSorted+data/Measurement@|data/Measurement#" attachSource="true" roleLabel="//@children.3/@sourceConnections.1/@children.1/@children.0">
+        <children xsi:type="editmodel:LabelEditModel" location="820,1391" size="0,13" anchorKind="FirstPart"/>
+      </children>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="arrPacketsSorted" location="122,94" id="data/Packet@arrPacketsSorted+data/Measurement@|data/Packet#arrPacketsSorted" multiplicityLabel="//@children.3/@sourceConnections.1/@children.2/@children.1" roleLabel="//@children.3/@sourceConnections.1/@children.2/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" - arrPacketsSorted" location="669,1363" size="111,13" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="*" location="669,1390" size="6,13" anchorKind="LastPart"/>
+      </children>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="interfaces/RMT_Attribute@sorted_by+data/Measurement@" source="//@children.3" target="//@children.5" targetEnd="//@children.3/@sourceConnections.2/@children.2" label="//@children.3/@sourceConnections.2/@children.0" sourceEnd="//@children.3/@sourceConnections.2/@children.1" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:WireLabelEditModel" size="0,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,877" id="interfaces/RMT_Attribute@sorted_by+data/Measurement@|data/Measurement#" attachSource="true" roleLabel="//@children.3/@sourceConnections.2/@children.1/@children.0">
+        <children xsi:type="editmodel:LabelEditModel" location="820,1708" size="0,13" anchorKind="FirstPart"/>
+      </children>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="sorted_by" location="149,57" id="interfaces/RMT_Attribute@sorted_by+data/Measurement@|interfaces/RMT_Attribute#sorted_by" multiplicityLabel="//@children.3/@sourceConnections.2/@children.2/@children.1" roleLabel="//@children.3/@sourceConnections.2/@children.2/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" - sorted_by" location="687,1567" size="68,13" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="1" location="687,1594" size="7,13" anchorKind="LastPart"/>
+      </children>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="data/Packet@arrPacketsFilters+data/Measurement@" source="//@children.3" target="//@children.4" targetEnd="//@children.3/@sourceConnections.3/@children.2" label="//@children.3/@sourceConnections.3/@children.0" sourceEnd="//@children.3/@sourceConnections.3/@children.1" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:WireLabelEditModel" size="0,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,564" id="data/Packet@arrPacketsFilters+data/Measurement@|data/Measurement#" attachSource="true" roleLabel="//@children.3/@sourceConnections.3/@children.1/@children.0">
+        <children xsi:type="editmodel:LabelEditModel" location="820,1395" size="0,13" anchorKind="FirstPart"/>
+      </children>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="arrPacketsFilters" location="122,134" id="data/Packet@arrPacketsFilters+data/Measurement@|data/Packet#arrPacketsFilters" multiplicityLabel="//@children.3/@sourceConnections.3/@children.2/@children.1" roleLabel="//@children.3/@sourceConnections.3/@children.2/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" - arrPacketsFilters" location="669,1430" size="107,13" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="*" location="669,1403" size="6,13" anchorKind="LastPart"/>
+      </children>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="data/Packet@arrPackets+data/Measurement@" source="//@children.3" target="//@children.4" targetEnd="//@children.3/@sourceConnections.4/@children.2" label="//@children.3/@sourceConnections.4/@children.0" sourceEnd="//@children.3/@sourceConnections.4/@children.1" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:WireLabelEditModel" size="0,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,540" id="data/Packet@arrPackets+data/Measurement@|data/Measurement#" attachSource="true" roleLabel="//@children.3/@sourceConnections.4/@children.1/@children.0">
+        <children xsi:type="editmodel:LabelEditModel" location="820,1371" size="0,13" anchorKind="FirstPart"/>
+      </children>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="arrPackets" location="122,54" id="data/Packet@arrPackets+data/Measurement@|data/Packet#arrPackets" multiplicityLabel="//@children.3/@sourceConnections.4/@children.2/@children.1" roleLabel="//@children.3/@sourceConnections.4/@children.2/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" - arrPackets" location="669,1323" size="73,13" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="*" location="669,1350" size="6,13" anchorKind="LastPart"/>
+      </children>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="data/Packet@arrPacketsSortedFilter+data/Measurement@" source="//@children.3" target="//@children.4" targetEnd="//@children.3/@sourceConnections.5/@children.2" label="//@children.3/@sourceConnections.5/@children.0" sourceEnd="//@children.3/@sourceConnections.5/@children.1" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:WireLabelEditModel" size="0,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,566" id="data/Packet@arrPacketsSortedFilter+data/Measurement@|data/Measurement#" attachSource="true" roleLabel="//@children.3/@sourceConnections.5/@children.1/@children.0">
+        <children xsi:type="editmodel:LabelEditModel" location="820,1397" size="0,13" anchorKind="FirstPart"/>
+      </children>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="arrPacketsSortedFilter" location="122,154" id="data/Packet@arrPacketsSortedFilter+data/Measurement@|data/Packet#arrPacketsSortedFilter" multiplicityLabel="//@children.3/@sourceConnections.5/@children.2/@children.1" roleLabel="//@children.3/@sourceConnections.5/@children.2/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" - arrPacketsSortedFilter" location="669,1450" size="138,13" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="*" location="669,1423" size="6,13" anchorKind="LastPart"/>
+      </children>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="data/Measurement-Standard::Call->interfaces/RMT_Attribute*data/Measurement-Soyatec::Import->interfaces/RMT_Attribute" source="//@children.3" target="//@children.5" targetEnd="//@children.3/@sourceConnections.6/@children.2" label="//@children.3/@sourceConnections.6/@children.0" sourceEnd="//@children.3/@sourceConnections.6/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Import, Call»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,853" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="134,0"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="data/Measurement-Standard::Call->data/Packet*data/Measurement-Soyatec::Import->data/Packet*data/Measurement-Soyatec::Import->data/Packet" source="//@children.3" target="//@children.4" targetEnd="//@children.3/@sourceConnections.7/@children.2" label="//@children.3/@sourceConnections.7/@children.0" sourceEnd="//@children.3/@sourceConnections.7/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Import, Call»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,530" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="122,44"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.1/@sourceConnections.4 //@children.3/@sourceConnections.1 //@children.3/@sourceConnections.3 //@children.3/@sourceConnections.4 //@children.3/@sourceConnections.5 //@children.3/@sourceConnections.7 //@children.5/@sourceConnections.1" name="Packet" location="540,1140" size="122,189" id="data/Packet" runTimeClassModel="getValue(Ljava.lang.String;),getValue(Linterfaces.RMT_Attribute;),Packet([Linterfaces.RMT_Attribute;[Ljava.lang.Float;),Packet([Ljava.lang.String;[Ljava.lang.Float;),getAllValues(),hasValue(Ljava.lang.String;),hasValue(Linterfaces.RMT_Attribute;)">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="99,126">
+      <children xsi:type="editmodel:MethodEditModel" name="Packet" id="data/Packet#Packet([Ljava.lang.String;[Ljava.lang.Float;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="Packet" id="data/Packet#Packet([Linterfaces.RMT_Attribute;[Ljava.lang.Float;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getAllValues" id="data/Packet#getAllValues()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getValue" id="data/Packet#getValue(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getValue" id="data/Packet#getValue(Linterfaces.RMT_Attribute;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="hasValue" id="data/Packet#hasValue(Linterfaces.RMT_Attribute;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="hasValue" id="data/Packet#hasValue(Ljava.lang.String;)"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="data/Packet-Standard::Call->interfaces/RMT_Attribute*data/Packet-Soyatec::Import->interfaces/RMT_Attribute" source="//@children.4" target="//@children.5" targetEnd="//@children.4/@sourceConnections.0/@children.2" label="//@children.4/@sourceConnections.0/@children.0" sourceEnd="//@children.4/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Import, Call»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="61,189" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="59,0"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.1/@sourceConnections.5 //@children.3/@sourceConnections.0 //@children.3/@sourceConnections.2 //@children.3/@sourceConnections.6 //@children.1/@sourceConnections.8 //@children.1/@sourceConnections.9 //@children.4/@sourceConnections.0 //@children.5/@sourceConnections.0" name="RMT_Attribute" location="522,1530" size="158,184" id="interfaces/RMT_Attribute" runTimeClassModel="getValues([Ldata.Packet;),getValuesString([Ldata.Packet;),getAttributeName(),isDrawable(),isNormalAttribute(),isFunctionAttribute()">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="135,108">
+      <children xsi:type="editmodel:MethodEditModel" name="getAttributeName" id="interfaces/RMT_Attribute#getAttributeName()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getValues" id="interfaces/RMT_Attribute#getValues([Ldata.Packet;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getValuesString" id="interfaces/RMT_Attribute#getValuesString([Ldata.Packet;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="isDrawable" id="interfaces/RMT_Attribute#isDrawable()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="isFunctionAttribute" id="interfaces/RMT_Attribute#isFunctionAttribute()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="isNormalAttribute" id="interfaces/RMT_Attribute#isNormalAttribute()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="interfaces/RMT_Attribute@mappingAttribute+interfaces/RMT_Attribute@" source="//@children.5" target="//@children.5" targetEnd="//@children.5/@sourceConnections.0/@children.2" label="//@children.5/@sourceConnections.0/@children.0" sourceEnd="//@children.5/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:WireLabelEditModel" size="0,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="mappingAttribute" location="0,10" id="interfaces/RMT_Attribute@mappingAttribute+interfaces/RMT_Attribute@|interfaces/RMT_Attribute#mappingAttribute" anchorKind="FixedAtEdge" attachSource="true" multiplicityLabel="//@children.5/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.5/@sourceConnections.0/@children.1/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" + mappingAttribute" location="401,1547" size="114,13" anchorKind="FirstPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="0..1" location="493,1520" size="22,13" anchorKind="FirstPart"/>
+      </children>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="10,0" id="interfaces/RMT_Attribute@mappingAttribute+interfaces/RMT_Attribute@|interfaces/RMT_Attribute#" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="interfaces/RMT_Attribute-Soyatec::Import->data/Packet" source="//@children.5" target="//@children.4" targetEnd="//@children.5/@sourceConnections.1/@children.2" label="//@children.5/@sourceConnections.1/@children.0" sourceEnd="//@children.5/@sourceConnections.1/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Import»" size="51,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="79,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="61,189"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.1/@sourceConnections.6 //@children.1/@sourceConnections.10" name="RMT_MeasureInfo" location="540,930" size="175,112" id="interfaces/RMT_MeasureInfo" runTimeClassModel="getMeasureInfoName(),getResult(Ldata.Measurement;)">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="152,36">
+      <children xsi:type="editmodel:MethodEditModel" name="getMeasureInfoName" id="interfaces/RMT_MeasureInfo#getMeasureInfoName()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getResult" id="interfaces/RMT_MeasureInfo#getResult(Ldata.Measurement;)"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="interfaces/RMT_MeasureInfo-Soyatec::Import->data/Measurement" source="//@children.6" target="//@children.3" targetEnd="//@children.6/@sourceConnections.0/@children.2" label="//@children.6/@sourceConnections.0/@children.0" sourceEnd="//@children.6/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Import»" size="51,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="175,56" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,312"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.1/@sourceConnections.7 //@children.8/@sourceConnections.0" name="RMT_Observer" location="530,90" size="166,184" id="interfaces/RMT_Observer" runTimeClassModel="updateNewPacket(),eVENT_ATTRIBUTE,updateNewAttribute(),updateNewMeasure(),eVENT_MEASURE,eVENT_PACKET">
+    <children xsi:type="editmodel:CompartmentEditModel" size="143,54">
+      <children xsi:type="editmodel:AttributeEditModel" name="eVENT_ATTRIBUTE" id="interfaces/RMT_Observer#eVENT_ATTRIBUTE"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="eVENT_MEASURE" id="interfaces/RMT_Observer#eVENT_MEASURE"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="eVENT_PACKET" id="interfaces/RMT_Observer#eVENT_PACKET"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="143,54">
+      <children xsi:type="editmodel:MethodEditModel" name="updateNewAttribute" id="interfaces/RMT_Observer#updateNewAttribute()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="updateNewMeasure" id="interfaces/RMT_Observer#updateNewMeasure()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="updateNewPacket" id="interfaces/RMT_Observer#updateNewPacket()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.8/@children.2/@children.0/@sourceConnections.0" name="PanelDrawBarchart" location="1350,355" size="209,233" id="panels/PanelDrawBarchart">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="186,90">
+      <children xsi:type="editmodel:MethodEditModel" name="PanelDrawBarchart" id="panels/PanelDrawBarchart#PanelDrawBarchart(Ldata.Model;Ljavax.swing.JButton;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="setObserverRegisterStatus" id="panels/PanelDrawBarchart#setObserverRegisterStatus(Z)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="updateNewAttribute" id="panels/PanelDrawBarchart#updateNewAttribute()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="updateNewMeasure" id="panels/PanelDrawBarchart#updateNewMeasure()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="updateNewPacket" id="panels/PanelDrawBarchart#updateNewPacket()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="153,70">
+      <children xsi:type="editmodel:ClassEditModel" name="ComboListener" size="153,68" id="panels/PanelDrawBarchart$ComboListener" runTimeClassModel="actionPerformed(Ljava.awt.event.ActionEvent;)">
+        <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+        <children xsi:type="editmodel:CompartmentEditModel" size="125,18">
+          <children xsi:type="editmodel:MethodEditModel" name="actionPerformed" id="panels/PanelDrawBarchart$ComboListener#actionPerformed(Ljava.awt.event.ActionEvent;)"/>
+        </children>
+        <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+        <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="panels/PanelDrawBarchart$ComboListener@listenerCombo+panels/PanelDrawBarchart@" source="//@children.8/@children.2/@children.0" target="//@children.8" targetEnd="//@children.8/@children.2/@children.0/@sourceConnections.0/@children.2" label="//@children.8/@children.2/@children.0/@sourceConnections.0/@children.0" sourceEnd="//@children.8/@children.2/@children.0/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan">
+          <children xsi:type="editmodel:WireLabelEditModel" size="0,13" anchorKind="MiddlePart"/>
+          <children xsi:type="editmodel:AssociationEndEditModel" name="listenerCombo" location="153,34" id="panels/PanelDrawBarchart$ComboListener@listenerCombo+panels/PanelDrawBarchart@|panels/PanelDrawBarchart$ComboListener#listenerCombo" attachSource="true" multiplicityLabel="//@children.8/@children.2/@children.0/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.8/@children.2/@children.0/@sourceConnections.0/@children.1/@children.0" navigable="true">
+            <children xsi:type="editmodel:LabelEditModel" name=" - listenerCombo" location="1553,551" size="95,13" anchorKind="FirstPart"/>
+            <children xsi:type="editmodel:LabelEditModel" name="1" location="1553,524" size="7,13" anchorKind="FirstPart"/>
+          </children>
+          <children xsi:type="editmodel:AssociationEndEditModel" location="209,34" id="panels/PanelDrawBarchart$ComboListener@listenerCombo+panels/PanelDrawBarchart@|panels/PanelDrawBarchart#" roleLabel="//@children.8/@children.2/@children.0/@sourceConnections.0/@children.2/@children.0">
+            <children xsi:type="editmodel:LabelEditModel" location="1566,369" size="0,13" anchorKind="LastPart"/>
+          </children>
+        </sourceConnections>
+        <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+      </children>
+    </children>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" targetConnections="//@children.9/@sourceConnections.0 //@children.10/@sourceConnections.0" autoLocated="true" id="interfaces/RMT_Observer&lt;-panels/PanelDrawBarchart" source="//@children.8" target="//@children.7" targetEnd="//@children.8/@sourceConnections.0/@children.1" sourceEnd="//@children.8/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="104,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="83,184" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@sourceConnections.2" name="PanelGraph" location="827,510" size="265,303" id="panels/PanelGraph">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="143,90">
+      <children xsi:type="editmodel:MethodEditModel" name="PanelGraph" id="panels/PanelGraph#PanelGraph(Ldata.Model;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="updateNewAttribute" id="panels/PanelGraph#updateNewAttribute()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="updateNewMeasure" id="panels/PanelGraph#updateNewMeasure()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="updateNewPacket" id="panels/PanelGraph#updateNewPacket(Z)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="updateNewPacket" id="panels/PanelGraph#updateNewPacket()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="242,140">
+      <children xsi:type="editmodel:ClassEditModel" name="ButtonDrawListListener" size="214,68" id="panels/PanelGraph$ButtonDrawListListener">
+        <children xsi:type="editmodel:CompartmentEditModel"/>
+        <children xsi:type="editmodel:CompartmentEditModel" size="125,18">
+          <children xsi:type="editmodel:MethodEditModel" name="actionPerformed" id="panels/PanelGraph$ButtonDrawListListener#actionPerformed(Ljava.awt.event.ActionEvent;)"/>
+        </children>
+        <children xsi:type="editmodel:CompartmentEditModel"/>
+        <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+      </children>
+      <children xsi:type="editmodel:ClassEditModel" name="ButtonGraphAdjustListener" size="242,68" id="panels/PanelGraph$ButtonGraphAdjustListener">
+        <children xsi:type="editmodel:CompartmentEditModel"/>
+        <children xsi:type="editmodel:CompartmentEditModel" size="125,18">
+          <children xsi:type="editmodel:MethodEditModel" name="actionPerformed" id="panels/PanelGraph$ButtonGraphAdjustListener#actionPerformed(Ljava.awt.event.ActionEvent;)"/>
+        </children>
+        <children xsi:type="editmodel:CompartmentEditModel"/>
+        <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+      </children>
+    </children>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="interfaces/RMT_Observer&lt;-panels/PanelGraph" source="//@children.9" target="//@children.8/@sourceConnections.0" targetEnd="//@children.9/@sourceConnections.0/@children.1" sourceEnd="//@children.9/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="132,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@sourceConnections.3" name="PanelPackageManager" location="1109,360" size="212,321" id="panels/PanelPackageManager">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="158,108">
+      <children xsi:type="editmodel:MethodEditModel" name="PanelPackageManager" id="panels/PanelPackageManager#PanelPackageManager(Ldata.Model;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="startRecording" id="panels/PanelPackageManager#startRecording()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="stopRecording" id="panels/PanelPackageManager#stopRecording()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="updateNewAttribute" id="panels/PanelPackageManager#updateNewAttribute()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="updateNewMeasure" id="panels/PanelPackageManager#updateNewMeasure()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="updateNewPacket" id="panels/PanelPackageManager#updateNewPacket()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="180,140">
+      <children xsi:type="editmodel:ClassEditModel" name="ButtonListener" size="150,68" id="panels/PanelPackageManager$ButtonListener">
+        <children xsi:type="editmodel:CompartmentEditModel"/>
+        <children xsi:type="editmodel:CompartmentEditModel" size="125,18">
+          <children xsi:type="editmodel:MethodEditModel" name="actionPerformed" id="panels/PanelPackageManager$ButtonListener#actionPerformed(Ljava.awt.event.ActionEvent;)"/>
+        </children>
+        <children xsi:type="editmodel:CompartmentEditModel"/>
+        <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+      </children>
+      <children xsi:type="editmodel:ClassEditModel" name="ComboBoxListener" size="180,68" id="panels/PanelPackageManager$ComboBoxListener">
+        <children xsi:type="editmodel:CompartmentEditModel"/>
+        <children xsi:type="editmodel:CompartmentEditModel" size="125,18">
+          <children xsi:type="editmodel:MethodEditModel" name="actionPerformed" id="panels/PanelPackageManager$ComboBoxListener#actionPerformed(Ljava.awt.event.ActionEvent;)"/>
+        </children>
+        <children xsi:type="editmodel:CompartmentEditModel"/>
+        <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+      </children>
+    </children>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="interfaces/RMT_Observer&lt;-panels/PanelPackageManager" source="//@children.10" target="//@children.8/@sourceConnections.0" targetEnd="//@children.10/@sourceConnections.0/@children.1" sourceEnd="//@children.10/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="106,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <diagramOptions xsi:type="options:ClassDiagramOptions" properties="wireOptions=7;Product=eUML2" autoName="false"/>
+  <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="15,15" gridOrigin="0,0" rulerUnit="pixel" gridVisibility="false">
+    <leftRuler/>
+    <topRuler/>
+  </boardSetting>
+  <classDiagramPreferences xsi:type="editmodel:UMLClassDiagramPreference" showPopupBars="true" showConnectionHandles="true" attributeSorter="Natural" methodSorter="Natural" showClassStereotype="true" showPackageStereotype="true" showDependencyStereotype="true" showInterfaceStereotype="true" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+</editmodel:ClassDiagramEditModel>
