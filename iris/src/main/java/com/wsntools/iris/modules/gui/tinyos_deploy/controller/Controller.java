@@ -194,8 +194,7 @@ public class Controller extends AbstractController implements ActionListener,
 
 		} else if (source.equals(mp.getFile_save_project_item())) {
 			saveProject();
-		} else if (source.equals(mp.getFile_open_project_item())
-				&& open_proj_dia == null) {
+		} else if (source.equals(mp.getMapping_open_btn()) && open_proj_dia == null) {
 			open_proj_dia = new Open_project_dialog(this);
 			open_proj_dia.setModal(true);
 		} else if (open_proj_dia != null
@@ -255,7 +254,6 @@ public class Controller extends AbstractController implements ActionListener,
 			saveProject();
 		} else if (source.equals(mp.getDeploy_button())) {
 			deploy_action();
-			
 		} else {
 			System.err.println("No action assigned to " + e.getSource());
 		}
