@@ -32,7 +32,7 @@ public interface IRIS_FunctionModule {
 	//Only to use after computed data
 	public float[] getPredictionValues();
 	
-	//Not used yet, but for later dynamic computation of single value results e.g. as measureinfo
-	public boolean isOneValueResult();
+	//For dynamic computation of single value results e.g. as measureinfo
+	public boolean isScalarValueResult();
 	
 }

@@ -24,6 +24,7 @@ import com.wsntools.iris.data.AliasAttribute;
 import com.wsntools.iris.data.Constants;
 import com.wsntools.iris.data.Measurement;
 import com.wsntools.iris.data.Model;
+import com.wsntools.iris.interfaces.IRIS_Observer;
 import com.wsntools.iris.panels.PanelMapping;
 
 public class DiaSetAliases extends JDialog {
@@ -135,7 +136,10 @@ public class DiaSetAliases extends JDialog {
 			for(int i=0; i<arrPanelMappings.length; i++) {
 				arrPanelMappings[i].setNewAlias(attr);
 			}
+			butRemove.setEnabled(attr.isUserAlias());
+			butRename.setEnabled(attr.isUserAlias());
 		}
+		
 	}
 	
 	
@@ -154,12 +158,13 @@ public class DiaSetAliases extends JDialog {
 					JOptionPane.showMessageDialog(model.getCurrentlyFocusedWindow(), "Please enter a valid aliasname (only letters and numbers allowed)");
 				}
 				else  {
-					AliasAttribute attr = new AliasAttribute(model, input, false, "");
+					AliasAttribute attr = new AliasAttribute(model, input, AliasAttribute.ALIAS_USER, "");
 					if(!model.addAliasAttribute(attr)) {
 						JOptionPane.showMessageDialog(model.getCurrentlyFocusedWindow(), "The chosen aliasname is already existing");
 					}
 					else {
 						updateList();
+						comboAttributes.setSelectedIndex(comboAttributes.getItemCount()-1);
 					}
 				}
 			}
@@ -167,8 +172,8 @@ public class DiaSetAliases extends JDialog {
 				//Only allow a change of name, if it is no gui-provided alias
 				AliasAttribute selAttr = (AliasAttribute)comboAttributes.getSelectedItem();
 				if(selAttr == null) return;
-				if(selAttr.isGUIRequiredAlias()) {
-					JOptionPane.showMessageDialog(model.getCurrentlyFocusedWindow(), "Attributes required by GUI Modules cannot be renamed");
+				if(selAttr.isGUIRequiredAlias() || selAttr.isFixedAlias()) {
+					JOptionPane.showMessageDialog(model.getCurrentlyFocusedWindow(), "Attributes required by GUI Modules and fixed ones cannot be renamed");
 					return;
 				}
 				
@@ -185,8 +190,8 @@ public class DiaSetAliases extends JDialog {
 			else if(ae.getSource().equals(butRemove)) {
 				AliasAttribute selAttr = ((AliasAttribute)comboAttributes.getSelectedItem());
 				if(selAttr == null) return;
-				if(selAttr.isGUIRequiredAlias()) {
-					JOptionPane.showMessageDialog(model.getCurrentlyFocusedWindow(), "Attributes required by GUI Modules cannot be removed manually");
+				if(selAttr.isGUIRequiredAlias() || selAttr.isFixedAlias()) {
+					JOptionPane.showMessageDialog(model.getCurrentlyFocusedWindow(), "Fixed- and attributes required by GUI Modules cannot be removed manually");
 					return;
 				}
 				int choice = JOptionPane.showConfirmDialog(ref, "Do you really want to delete the alias attribute " + selAttr.getAttributeName(), "IRIS - Delete Alias Attribute", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -202,7 +207,8 @@ public class DiaSetAliases extends JDialog {
 				for(int i=0; i<arrPanelMappings.length; i++) {
 					meas = arrPanelMappings[i].getMappingMeasure();
 					selAttr.setMappingAttribute(meas, meas.getAttribute(arrPanelMappings[i].getMappingSelection()));
-				}				
+				}
+				model.updateObserver(IRIS_Observer.EVENT_ATTRIBUTE);
 			}
 			else if(ae.getSource().equals(butClose)) {
 				ref.dispose();

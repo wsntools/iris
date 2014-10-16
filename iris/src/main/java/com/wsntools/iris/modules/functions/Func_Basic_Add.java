@@ -50,7 +50,7 @@ public class Func_Basic_Add extends FunctionBasic implements IRIS_FunctionModule
 	}
 
 	@Override
-	public boolean isOneValueResult() {
+	public boolean isScalarValueResult() {
 		
 		return false;
 	}

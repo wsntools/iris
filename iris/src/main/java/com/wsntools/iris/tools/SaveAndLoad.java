@@ -315,8 +315,7 @@ public class SaveAndLoad {
 		for (int i = 0; i < fc.getSelectedFiles().length; i++) {
 
 			res[i] = new Measurement(m.getNextMeasurementNumber() + i,
-					"Measurement " + (m.getNextMeasurementNumber() + i),
-					m.getFixedAttributes());
+					"Measurement " + (m.getNextMeasurementNumber() + i));
 			attrnames.clear();
 			attrvalues.clear();
 			arrPackets.clear();
@@ -347,7 +346,7 @@ public class SaveAndLoad {
 						measurename = line.replaceFirst("<description>", "")
 								.replaceFirst("</description>", "");
 						res[i] = new Measurement(m.getNextMeasurementNumber()
-								+ i, measurename, m.getFixedAttributes());
+								+ i, measurename);
 					}
 					// Read out measuredata
 					if (line.startsWith("<trace id=\"")) {
@@ -580,8 +579,7 @@ public class SaveAndLoad {
 		for (int i = 0; i < fc.getSelectedFiles().length; i++) {
 
 			res[i] = new Measurement(m.getNextMeasurementNumber() + i,
-					"Measurement " + (m.getNextMeasurementNumber() + i),
-					m.getFixedAttributes());
+					"Measurement " + (m.getNextMeasurementNumber() + i));
 			arrPackets.clear();
 
 			try {
@@ -680,7 +678,7 @@ public class SaveAndLoad {
 			f[i] = new File(files[i]);
 
 			res[i] = new Measurement(m.getNextMeasurementNumber() + i,
-					killFTypeExt(f[i].getName()), m.getFixedAttributes());
+					killFTypeExt(f[i].getName()));
 			arrPackets.clear();
 
 			try {

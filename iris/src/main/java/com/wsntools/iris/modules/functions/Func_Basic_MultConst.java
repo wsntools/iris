@@ -53,7 +53,7 @@ public class Func_Basic_MultConst extends FunctionBasic implements IRIS_Function
 	}
 
 	@Override
-	public boolean isOneValueResult() {
+	public boolean isScalarValueResult() {
 		
 		return false;
 	}

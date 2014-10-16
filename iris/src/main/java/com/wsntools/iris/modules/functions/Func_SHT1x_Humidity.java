@@ -52,7 +52,7 @@ public class Func_SHT1x_Humidity extends FunctionBasic implements IRIS_FunctionM
 	}
 
 	@Override
-	public boolean isOneValueResult() {
+	public boolean isScalarValueResult() {
 
 		return false;
 	}

@@ -52,7 +52,7 @@ public class Func_CC2420_RSSI extends FunctionBasic implements IRIS_FunctionModu
 	}
 
 	@Override
-	public boolean isOneValueResult() {
+	public boolean isScalarValueResult() {
 
 		return false;
 	}

@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 
 import com.wsntools.iris.data.AliasAttribute;
 import com.wsntools.iris.data.Constants;
+import com.wsntools.iris.data.Measurement;
 import com.wsntools.iris.data.Model;
 import com.wsntools.iris.extensions.SimpleScriptExecuter;
 import com.wsntools.iris.extensions.UAVXMLLogParser;
@@ -25,6 +26,33 @@ import com.wsntools.iris.tools.SaveAndLoad;
 public class GUI_NetworkCommunication extends IRIS_GUIModule {
 
 	private PanelCommunication panelCommunication;
+	
+	private final IRIS_ModuleInfo[] moduleInfos = new IRIS_ModuleInfo[] {
+			new IRIS_ModuleInfo() {				
+				@Override
+				public String getResult(Measurement meas) {
+					return (model.getDataCollector().isActive() ?
+							("ACTIVE (" + model.getDataCollector().getListener().size() + " Sources)") :
+							("INACTIVE (" + model.getDataCollector().getListener().size() + " Sources)"));
+				}				
+				@Override
+				public String getModuleInfoName() {					
+					return "Input Recording";
+				}
+			},			
+			new IRIS_ModuleInfo() {				
+				@Override
+				public String getResult(Measurement meas) {
+					return (model.getEventLogger().isLoggingEnabled() ?
+							("ACTIVE (" + model.getEventLogger().getMeasurementConfiguration(model.getCurrentMeasurement()).size()) + " Files)" :
+							("INACTIVE (" + model.getEventLogger().getMeasurementConfiguration(model.getCurrentMeasurement()).size() + " Files)"));
+				}				
+				@Override
+				public String getModuleInfoName() {					
+					return "Event Logging";
+				}
+			}
+	};
 	
 	public GUI_NetworkCommunication(Model m) {
 		super(m);
@@ -58,18 +86,17 @@ public class GUI_NetworkCommunication extends IRIS_GUIModule {
 
 	@Override
 	public IRIS_Observer getModuleObserver() {
-		return null;
+		return panelCommunication;
 	}
 
 	@Override
 	public IRIS_ModuleInfo[] getRelatedModuleInfos() {
-		// TODO Auto-generated method stub
-		return null;
+		return moduleInfos;
 	}
 
 
 	private static final String[] menuBarEntries =
-		{ "Import Messages", "Import Script", "Import C-Listener Dump", "Decode Package", "Export Messages", "Export Script", "Start Quickdump", "Stop Quickdump" };
+		{ "Import Messages", "Import Script", "Import C-Listener Dump", "Decode Package", "Export Messages", "Export Script"/*, "Start Quickdump", "Stop Quickdump" */};
 	@Override
 	public String[] getRelatedMenuBarEntries() {		
 		return menuBarEntries;
@@ -112,7 +139,7 @@ public class GUI_NetworkCommunication extends IRIS_GUIModule {
 			else if(name.equals(menuBarEntries[5])) {
 				SaveAndLoad.saveScript(model, SimpleScriptExecuter.getScriptText());
 			}
-			//Start Quickdump
+			/*//Start Quickdump
 			else if(name.equals(menuBarEntries[6])) {
 				DataCollector collector = model.getDataCollector();
 				if (collector == null) {
@@ -129,7 +156,7 @@ public class GUI_NetworkCommunication extends IRIS_GUIModule {
 					collector.setActivation(true);
 					collector.setQuickDump(false);
 				}
-			}
+			}*/
 		}
 	};
 	@Override

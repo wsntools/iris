@@ -17,11 +17,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.wsntools.iris.tools.datacollector.util.ClassLoader;
+import com.wsntools.iris.data.Constants;
+import com.wsntools.iris.tools.ModuleLoader;
 
 public class SendingManager {
-	private List<ConstructorWrapper> getAnnotatedConstructors(
-			Class<?> encoder_type) {
+	private List<ConstructorWrapper> getAnnotatedConstructors(Class<?> encoder_type) {
 		Constructor<?>[] consts = encoder_type.getConstructors();
 		List<ConstructorWrapper> annotated_constructors = new ArrayList<>();
 		for (Constructor<?> c : consts) {
@@ -60,7 +60,7 @@ public class SendingManager {
 		try {
 			List<ConstructorWrapper> annotated_constructors = getAnnotatedConstructors(encoder_type);
 			if (annotated_constructors.size() != 0) {
-				JOptionPane.showInputDialog(null, "", "Choose a constructor",
+				JOptionPane.showInputDialog(null, "", "IRIS - Choose a constructor",
 						JOptionPane.PLAIN_MESSAGE, null,
 						annotated_constructors.toArray(), null);
 			} else {
@@ -90,13 +90,13 @@ public class SendingManager {
 	public SendingConfiguration send(AbstractEncoder encoder, String port) {
 		try {
 			encoder.encode();
-			Class<?>[] sender_types = ClassLoader
-					.loadClassesByPackage("tools.datacollector.sending.sender");
+			Class<?>[] sender_types = ModuleLoader
+					.loadClassesByPackage(Constants.getNetSendingSenderPackage());
 
 			Object selection = null;
 			do {
 				selection = JOptionPane.showInputDialog(null,
-						"Please choose a sender type", "",
+						"Please choose a sender type", "IRIS - Sender Selection",
 						JOptionPane.PLAIN_MESSAGE, null, sender_types, null);
 				if (selection == null)
 					return null;
@@ -119,16 +119,20 @@ public class SendingManager {
 		sender.send(port, encoder);
 		return new SendingConfiguration(encoder, sender, port);
 	}
+	
+	public SendingConfiguration send(SendingConfiguration sendConfig) {
+		sendConfig.getEncoder().encode();
+		sendConfig.getSender().send(sendConfig.getPort(), sendConfig.getEncoder());
+		return sendConfig;
+	}
 
 //	public void send(SendingConfiguration config) {
 //		send(config.getEncoder(), config.getSender(), config.getPort());
 //	}
 
-	public void buildSendingSetup() {
-		SendingManager x = new SendingManager();
+	public SendingConfiguration buildSendingSetup() {		
 		
-		Class<?>[] encoder_types = ClassLoader
-				.loadClassesByPackage("tools.datacollector.sending.encoder");
+		Class<?>[] encoder_types = ModuleLoader.loadClassesByPackage(Constants.getNetSendingEncoderPackage());
 		JPanel dialog_panel = new JPanel(new GridLayout(2,1));
 		JComboBox<Class<?>> encoder_selection = new JComboBox<Class<?>>(encoder_types);
 		JTextField port_selection = new JTextField();
@@ -144,50 +148,13 @@ public class SendingManager {
 			port_panel.add(port_selection,BorderLayout.CENTER);
 			dialog_panel.add(port_panel);
 		}
-		JOptionPane.showConfirmDialog(null, dialog_panel, "", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null);
-		
+		int choice = JOptionPane.showConfirmDialog(null, dialog_panel, "", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null);
+		if(choice == JOptionPane.CANCEL_OPTION) return null;
 		Class<?> encoder_type = (Class<?>)encoder_selection.getSelectedItem();
 		String port = port_selection.getText();
 		
 		
-		x.send(encoder_type, port);
-	}
-
-	class SendingConfiguration {
-		private AbstractEncoder encoder;
-		private ISender sender;
-		private String port;
-
-		public SendingConfiguration(AbstractEncoder encoder, ISender sender,
-				String port) {
-			this.encoder = encoder;
-			this.sender = sender;
-			this.port = port;
-		}
-
-		public AbstractEncoder getEncoder() {
-			return encoder;
-		}
-
-		public void setEncoder(AbstractEncoder encoder) {
-			this.encoder = encoder;
-		}
-
-		public ISender getSender() {
-			return sender;
-		}
-
-		public void setSender(ISender sender) {
-			this.sender = sender;
-		}
-
-		public String getPort() {
-			return port;
-		}
-
-		public void setPort(String port) {
-			this.port = port;
-		}
+		return send(encoder_type, port);		
 	}
 
 	class ConstructorParameter {

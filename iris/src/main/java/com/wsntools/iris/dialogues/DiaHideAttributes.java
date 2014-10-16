@@ -131,7 +131,7 @@ public class DiaHideAttributes extends JDialog {
 		}
 	}
 	
-	class ButtonListener implements ActionListener {
+	private class ButtonListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent ae) {
 

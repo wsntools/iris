@@ -43,9 +43,10 @@ public class EventLogger implements IRIS_Observer {
 	//--Configuration--
 	public List<IRIS_Attribute[]> getMeasurementConfiguration(Measurement measure) {
 		
-//		return mapMeasurementToLoggedAttributes.getOrDefault(measure, new ArrayList<IRIS_Attribute[]>());
-		System.err.println("FIX ME");
-		return null;
+		if(mapMeasurementToLoggedAttributes.containsKey(measure))
+			return mapMeasurementToLoggedAttributes.get(measure);
+		else
+			return new ArrayList<IRIS_Attribute[]>();
 	}
 	public void addMeasurementConfiguration(Measurement measure, List<IRIS_Attribute[]> configlist) {
 		
@@ -69,7 +70,9 @@ public class EventLogger implements IRIS_Observer {
 	private void startLogging() {
 		//Check whether a configuration file is available and if not, show the configuration input
 		if(!mapMeasurementToLoggedAttributes.containsKey(model.getCurrentMeasurement())) {
-			DiaLoggerSettings.showLoggerSettingsWindow(model, model.getCurrentMeasurement(), getMeasurementConfiguration(model.getCurrentMeasurement()));
+			List<IRIS_Attribute[]> list = DiaLoggerSettings.showLoggerSettingsWindow(model, model.getCurrentMeasurement(), getMeasurementConfiguration(model.getCurrentMeasurement()));
+			if(list != null && list.size() > 0)
+				mapMeasurementToLoggedAttributes.put(model.getCurrentMeasurement(), list);
 		}
 		if(mapMeasurementToLoggedAttributes.containsKey(model.getCurrentMeasurement())) {
 			Measurement currentMeasurement = model.getCurrentMeasurement();
@@ -80,8 +83,8 @@ public class EventLogger implements IRIS_Observer {
 			for(IRIS_Attribute[] attrList: toLog) {
 				filename = firstline = "";
 				for(int i=0; i<attrList.length; i++) {
-					filename = attrList[i].getAttributeName() + "_";
-					firstline = ((i!=0) ? Constants.getLoggingValueSeparator() : "") + attrList[i].getAttributeName();
+					filename += attrList[i].getAttributeName() + "_";
+					firstline += ((i!=0) ? Constants.getLoggingValueSeparator() : "") + attrList[i].getAttributeName();
 				}
 				filename += new SimpleDateFormat("dd-MM-yy_HH-mm-ss").format(new Date()) + ".txt";
 				try {
@@ -90,8 +93,8 @@ public class EventLogger implements IRIS_Observer {
 					f = new File(f, Constants.getSep() + filename);
 					writer = new BufferedWriter(new FileWriter(f));
 					writer.write(firstline);
-					writer.newLine();
-					writer.flush();
+					writer.newLine();					
+					writer.flush();					
 					
 					mapWriterToLoggedAttributes.put(writer, attrList);
 				}
@@ -102,6 +105,14 @@ public class EventLogger implements IRIS_Observer {
 			
 			model.registerObserver(this);
 			isLoggingEnabled = true;
+			System.out.println("Logging of " + toLog.size() + " files started");
+			
+			//Write all packets that have been received so far
+			for(BufferedWriter bw: mapWriterToLoggedAttributes.keySet())
+				writeValues(bw, model.getCurrentMeasurement().getAllPacketsInOrder());
+		}
+		else {
+			
 		}
 	}
 	
@@ -113,6 +124,8 @@ public class EventLogger implements IRIS_Observer {
 				System.err.println("Error while closing a logfile!");
 			}
 		}
+		mapWriterToLoggedAttributes.clear();
+		System.out.println("Logging ended");
 		
 		model.unregisterObserver(this);
 		isLoggingEnabled = false;
@@ -127,7 +140,7 @@ public class EventLogger implements IRIS_Observer {
 			for(int i=0; i<newPackets.length;i++) {
 				line = "";
 				for(int j=0; j<toLog.length; j++) {
-					line += (line.isEmpty() ? Constants.getLoggingValueSeparator() : "") + Float.toString(newPackets[i].getValue(toLog[j]));
+					line += (!line.isEmpty() ? Constants.getLoggingValueSeparator() : "") + Float.toString(newPackets[i].getValue(toLog[j]));
 				}
 				
 				try {
@@ -136,6 +149,7 @@ public class EventLogger implements IRIS_Observer {
 					writer.flush();
 				} catch (IOException e) {
 					System.err.println("Error while writing the log file");
+					e.printStackTrace();
 				}
 				
 			}

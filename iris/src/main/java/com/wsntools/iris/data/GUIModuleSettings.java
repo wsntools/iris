@@ -26,11 +26,13 @@ public class GUIModuleSettings {
 	public GUIModuleSettings(IRIS_GUIModule module) {
 		
 		guiModule = module;
-		isActive = true;
+		isActive = false;
 		isRegisteredAsObserver = true;
 		isWindowed = false;
 		
 	}
+	
+	
 	
 	
 	//Getter && Setter

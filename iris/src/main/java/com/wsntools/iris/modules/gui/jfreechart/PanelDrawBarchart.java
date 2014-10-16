@@ -101,7 +101,7 @@ public class PanelDrawBarchart extends JPanel implements IRIS_Observer {
 		comboValue.removeActionListener(listenerCombo);
 		comboValue.removeAllItems();
 
-		List<IRIS_Attribute> listattr = model.getMeasureAttributes(true);
+		List<IRIS_Attribute> listattr = model.getMeasureAttributesBySpecification(true, false, true, true, true, false);
 		comboValue.addItem("None");
 		for (int j = 0; j < listattr.size(); j++) {
 			if (listattr.get(j).isDrawable()) {
@@ -132,7 +132,7 @@ public class PanelDrawBarchart extends JPanel implements IRIS_Observer {
 
 		for (int j = 0; j < model.getFunctionNames().length; j++) {
 			IRIS_FunctionModule func = model.getFunctionInstanceByName(model.getFunctionNames()[j]);
-			if (func.isOneValueResult() && func.getParameterCount() == 1) {
+			if (func.isScalarValueResult() && func.getParameterCount() == 1) {
 				comboFunctions.addItem(model.getFunctionNames()[j]);
 			}
 		}

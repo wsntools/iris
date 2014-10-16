@@ -204,7 +204,7 @@ public class PanelToolBar extends JPanel implements IRIS_Observer {
 		comboMeasure.setSelectedIndex(model.getCurrentMeasureIndex());
 		comboMeasure.addActionListener(listenerGUI);
 		
-		System.out.println(model.getCurrentMeasurement().getMeasureName());
+		//System.out.println(model.getCurrentMeasurement().getMeasureName());
 	}
 
 	// Do nothing

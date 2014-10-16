@@ -36,7 +36,7 @@ public class Func_Quality_SNR extends FunctionBasic implements IRIS_FunctionModu
 	}
 
 	@Override
-	public boolean isOneValueResult() {
+	public boolean isScalarValueResult() {
 
 		return false;
 	}

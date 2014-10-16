@@ -36,7 +36,7 @@ public class Measurement {
 	private Packet[] arrPackets = new Packet[0];
 	private Packet[] arrLastPackets = new Packet[0];
 	
-	//List of user defined filters for this measurement
+	//List of user defined filters for this measurement (not related to packet filtering)
 	private ArrayList<FilterSettings> userDefinedFilterSets = new ArrayList<FilterSettings>();
 	
 	//Network Communication Related
@@ -47,22 +47,29 @@ public class Measurement {
 
 
 	// Constructor
-	public Measurement(int num, String name, IRIS_Attribute[] fixedattr) {
+	public Measurement(int num, String name, IRIS_Attribute[] initattr) {
 
 		measure_nr = num;
 		measure_name = name;
 
-		for (int i = 0; i < fixedattr.length; i++) {
+		for (int i = 0; i < initattr.length; i++) {
 			try {
-				attributes.add(fixedattr[i].getClass().newInstance());
+				attributes.add(initattr[i].getClass().newInstance());
 
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.err.println("Cannot create a copy of attribute: "
-						+ fixedattr[i].getAttributeName());
+						+ initattr[i].getAttributeName());
 			}
 		}
 
+	}
+	
+	// Constructor providing no initial attributes
+	public Measurement(int num, String name) {
+
+		measure_nr = num;
+		measure_name = name;
 	}
 
 	public void addNeighbour(int neighbourId, long time) {
@@ -134,22 +141,21 @@ public class Measurement {
 	}
 
 	// Returns all attributes using functions
-	public IRIS_Attribute[] getFunctionAttributes() {
+	public IRIS_Attribute[] getFunctionAttributes(boolean nonScalar, boolean scalar) {
 
+		List<IRIS_Attribute> attrlist = new ArrayList<IRIS_Attribute>();
 		IRIS_Attribute[] res;
 		int num = 0;
 		for (int i = 0; i < attributes.size(); i++) {
 			if (attributes.get(i).isFunctionAttribute()) {
-				num++;
+				boolean isScalar = ((FunctionAttribute)attributes.get(i)).isScalarValueResult();
+				if((nonScalar && scalar) || (scalar && isScalar) || (nonScalar && !isScalar))
+					attrlist.add(attributes.get(i));
+
 			}
 		}
-		res = new IRIS_Attribute[num];
-		num = 0;
-		for (int i = 0; i < attributes.size(); i++) {
-			if (attributes.get(i).isFunctionAttribute()) {
-				res[num++] = attributes.get(i);
-			}
-		}
+		res = new IRIS_Attribute[attrlist.size()];
+		res = attrlist.toArray(res);
 		return res;
 	}
 
@@ -197,7 +203,7 @@ public class Measurement {
 	public String removeFunctionAttribute(FunctionAttribute attr) {
 
 		// Get all attributes used by the attribute which to delete
-		IRIS_Attribute[] funcattr = getFunctionAttributes();
+		IRIS_Attribute[] funcattr = getFunctionAttributes(true, true);
 		IRIS_Attribute[] usedattr;
 		String deps = "";
 
@@ -237,7 +243,7 @@ public class Measurement {
 			attributes.add(attr);
 	}
 
-	public float[] getAttributeValuesByName(String atname, boolean refresh, boolean fillUncoveredValues) {
+	public float[] getAttributeValuesByName(String atname, boolean refresh, boolean fillUncoveredFilterValues) {
 
 		IRIS_Attribute att = null;
 		float[] res = new float[getNumberOfPackets()];
@@ -259,8 +265,12 @@ public class Measurement {
 
 			res = att.getValues(getAllPacketsInOrder());
 			
+			if(((FunctionAttribute) att).isScalarValueResult()) {
+				return res;
+			}
+			
 			//For output, fill the not used range of values with default values
-			if(fillUncoveredValues) {
+			if(fillUncoveredFilterValues) {
 				List<Integer> listToAdd = ((FunctionAttribute) att).getFilterPassingPacketIndices();
 				float[] newRes = new float[arrPackets.length + ((FunctionAttribute) att).getPredictionValueCount()];
 				int next = 0;

@@ -53,7 +53,7 @@ public class Func_Basic_AddConst extends FunctionBasic implements IRIS_FunctionM
 	}
 
 	@Override
-	public boolean isOneValueResult() {
+	public boolean isScalarValueResult() {
 		
 		return false;
 	}

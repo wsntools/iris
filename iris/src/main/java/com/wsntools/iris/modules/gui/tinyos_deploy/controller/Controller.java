@@ -1,7 +1,7 @@
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-package com.wsntools.iris.tools.tinyos_deploy.controller;
+package com.wsntools.iris.modules.gui.tinyos_deploy.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +17,7 @@ import java.util.List;
 
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
@@ -24,14 +25,14 @@ import javax.swing.event.TableModelListener;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
-import com.wsntools.iris.tools.tinyos_deploy.model.Constants;
-import com.wsntools.iris.tools.tinyos_deploy.model.Mapping3;
-import com.wsntools.iris.tools.tinyos_deploy.model.Model;
-import com.wsntools.iris.tools.tinyos_deploy.view.Install_dialog;
-import com.wsntools.iris.tools.tinyos_deploy.view.Main_View;
-import com.wsntools.iris.tools.tinyos_deploy.view.Open_files_dialog;
-import com.wsntools.iris.tools.tinyos_deploy.view.Open_project_dialog;
-import com.wsntools.iris.tools.tinyos_deploy.view.Settings_dialog;
+import com.wsntools.iris.modules.gui.tinyos_deploy.model.Constants;
+import com.wsntools.iris.modules.gui.tinyos_deploy.model.Mapping3;
+import com.wsntools.iris.modules.gui.tinyos_deploy.model.Model;
+import com.wsntools.iris.modules.gui.tinyos_deploy.view.Install_dialog;
+import com.wsntools.iris.modules.gui.tinyos_deploy.view.Main_View;
+import com.wsntools.iris.modules.gui.tinyos_deploy.view.Open_files_dialog;
+import com.wsntools.iris.modules.gui.tinyos_deploy.view.Open_project_dialog;
+import com.wsntools.iris.modules.gui.tinyos_deploy.view.Settings_dialog;
 
 /**
  * Controller for the TinyOS deploy GUI
@@ -304,6 +305,10 @@ public class Controller extends AbstractController implements ActionListener,
 
 	public Model getModel() {
 		return m;
+	}
+	
+	public JFrame getView() {
+		return mp;
 	}
 
 	public void closeDialog(JDialog dia) {

@@ -26,7 +26,7 @@ import com.wsntools.iris.data.Model;
 import com.wsntools.iris.data.Packet;
 
 /**
- * @author Sascha Jungen M#2242754
+ * @author Sascha Jungen
  * 
  */
 public class DataCollector implements MessageListener {
@@ -773,7 +773,7 @@ public class DataCollector implements MessageListener {
 	private void deregisterSerialForwarderListener() {
 		for (Class<Message> c : messages) {
 			try {
-				mote.registerListener(c.cast(c.newInstance()).getClass()
+				mote.deregisterListener(c.cast(c.newInstance()).getClass()
 						.newInstance(), this);
 			} catch (Exception e) {
 				e.printStackTrace();

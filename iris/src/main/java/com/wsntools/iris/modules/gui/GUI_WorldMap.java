@@ -22,11 +22,9 @@ public class GUI_WorldMap extends IRIS_GUIModule {
 	public GUI_WorldMap(Model m) {
 		super(m);
 		requiredAttributes = new AliasAttribute[3];
-		requiredAttributes[0] = new AliasAttribute(m, "Latitude", true, "Latitude coordinate of a node");
-		requiredAttributes[1] = new AliasAttribute(m, "Longitude", true, "Longitude coordinate of a node");
-		requiredAttributes[2] = new AliasAttribute(m, "NodeID", true, "The identification number of a node");
-		panelWorldMap = new MapView(m, requiredAttributes[0], requiredAttributes[1], requiredAttributes[2]);
-		getGUIPanel().setBorder(javax.swing.BorderFactory.createTitledBorder(getModuleName()));
+		requiredAttributes[0] = new AliasAttribute(m, "Latitude", AliasAttribute.ALIAS_GUI, "Latitude coordinate of a node");
+		requiredAttributes[1] = new AliasAttribute(m, "Longitude", AliasAttribute.ALIAS_GUI, "Longitude coordinate of a node");
+		requiredAttributes[2] = new AliasAttribute(m, "NodeID", AliasAttribute.ALIAS_GUI, "The identification number of a node");		
 	}
 
 	@Override
@@ -40,7 +38,11 @@ public class GUI_WorldMap extends IRIS_GUIModule {
 	}
 
 	@Override
-	public JPanel getGUIPanel() {	
+	public JPanel getGUIPanel() {
+		if(panelWorldMap == null) {
+			panelWorldMap = new MapView(model, requiredAttributes[0], requiredAttributes[1], requiredAttributes[2]);
+			panelWorldMap.setBorder(javax.swing.BorderFactory.createTitledBorder(getModuleName()));
+		}
 		return panelWorldMap;
 	}
 

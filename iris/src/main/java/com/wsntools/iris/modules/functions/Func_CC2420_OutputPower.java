@@ -80,7 +80,7 @@ public class Func_CC2420_OutputPower extends FunctionBasic implements IRIS_Funct
 	}
 
 	@Override
-	public boolean isOneValueResult() {
+	public boolean isScalarValueResult() {
 
 		return false;
 	}

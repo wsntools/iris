@@ -4,6 +4,7 @@
 package com.wsntools.iris.tools;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
@@ -12,14 +13,9 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.security.CodeSource;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
 
-import jogamp.common.Debug;
-
-import org.apache.log4j.Logger;
 
 import com.wsntools.iris.data.Constants;
 import com.wsntools.iris.data.Model;
@@ -27,7 +23,6 @@ import com.wsntools.iris.interfaces.IRIS_GUIModule;
 import com.wsntools.iris.interfaces.IRIS_ModuleInfo;
 import com.wsntools.iris.interfaces.IRIS_Attribute;
 import com.wsntools.iris.interfaces.IRIS_FunctionModule;
-import com.wsntools.iris.main.RadioMonitoringTool;
 
 /**
  * @author Sascha Jungen
@@ -53,11 +48,10 @@ public class ModuleLoader {
 		System.out.println("----------\nAttributes:\n----------");
 		Object[] arr = loadIFClasses(Constants.getDirModulesAttributes(),
 				Constants.getJarModulesAttributes(),
-				"com.wsntools.iris.interfaces.RMT_Attribute");
+				Constants.getIfAttrPackage());
 		IRIS_Attribute[] res = new IRIS_Attribute[arr.length];
 		for (int i = 0; i < arr.length; i++) {
 			res[i] = (IRIS_Attribute) arr[i];
-
 		}
 		return res;
 
@@ -106,18 +100,10 @@ public class ModuleLoader {
 
 		Object[] arr = loadIFClasses(Constants.getDirModulesFunctions(),
 				Constants.getJarModulesFunctions(),
-				"com.wsntools.iris.interfaces.IRIS_FunctionModule");
+				Constants.getIfFuncPackage());
 
 		IRIS_FunctionModule[] res = new IRIS_FunctionModule[arr.length];
 		for (int i = 0; i < arr.length; i++) {
-			// System.out.println(arr[i]);
-			// System.out.println(arr[i] instanceof IRIS_FunctionModule);
-			// System.out.println(IRIS_FunctionModule.class);
-			// System.out.println(arr[i].getClass());
-			Class[] classes = arr[i].getClass().getClasses();
-			// System.out.println("number of classes: " + classes.length);
-			for (Class classInst : classes)
-				System.out.println("HIER:" + classInst);
 			res[i] = (IRIS_FunctionModule) arr[i];
 		}
 		return res;
@@ -127,7 +113,7 @@ public class ModuleLoader {
 		System.out.println("----------\nMeasurement Information:\n----------");
 		Object[] arr = loadIFClasses(Constants.getDirModulesInfo(),
 				Constants.getJarModulesInfo(),
-				"com.wsntools.iris.interfaces.IRIS_ModuleInfo");
+				Constants.getIfInfoPackage());
 		IRIS_ModuleInfo[] res = new IRIS_ModuleInfo[arr.length];
 		for (int i = 0; i < arr.length; i++) {
 			res[i] = (IRIS_ModuleInfo) arr[i];
@@ -139,37 +125,16 @@ public class ModuleLoader {
 		System.out.println("----------\nGUI Modules:\n----------");
 		Object[] arr = loadEXTClasses(Constants.getDirModulesGUI(),
 				Constants.getJarModulesGUI(),
-				"com.wsntools.iris.interfaces.IRIS_GUIModule");
+				Constants.getIfGuimodulePackage());
 		IRIS_GUIModule[] res = new IRIS_GUIModule[arr.length];
 		for (int i = 0; i < arr.length; i++) {
 			try {
-				System.out.println("CURREN: " + arr[i]);
-
-				// System.out.println(arr[i].getClass().getConstructor(
-				// Class.forName(m.getClass().getCanonicalName())));
-				// System.out.println(arr[i].getClass().getConstructor(
-				// Model.class));
-				// System.out.println(arr[i].getClass().getConstructor(
-				// m.getClass()));
-
-				System.out.println(((Class) arr[i]).getConstructor(Class
-						.forName(m.getClass().getCanonicalName())));
-				System.out
-						.println(((Class) arr[i]).getConstructor(Model.class));
-				System.out
-						.println(((Class) arr[i]).getConstructor(m.getClass()));
-
-				// res[i] = (IRIS_GUIModule) (((Class) arr[i])
-				// .getConstructor(Model.class).newInstance(m));
-				//
 				res[i] = (IRIS_GUIModule) (((Class) arr[i])
 						.getConstructor(m.getClass()).newInstance(m));
 
 			} catch (InstantiationException | IllegalAccessException
 					| IllegalArgumentException | InvocationTargetException
-					| NoSuchMethodException | SecurityException
-					| ClassNotFoundException e) {
-				// e.printStackTrace();
+					| NoSuchMethodException | SecurityException e) {
 				System.err.println("Error during class loading");
 				e.printStackTrace();
 				res[i] = null;
@@ -451,6 +416,64 @@ public class ModuleLoader {
 		}
 
 		return null;
+	}
+	
+	public static Class<?>[] loadClassesByPackage(String package_path) {
+		String package_path_replaced = package_path.replace(".", Constants.getSep());
+		File f = new File(ModuleLoader.getSourcePath() + Constants.getSep() + package_path_replaced);
+		File[] class_files = f.listFiles(new FilenameFilter() {
+
+			@Override
+			public boolean accept(File dir, String name) {
+				return name.endsWith(".class");
+			}
+		});
+//		System.out.println(Arrays.toString(class_files));
+		java.lang.ClassLoader xx = ModuleLoader.class.getClassLoader();
+		try {
+			Class<?>[] classes = new Class<?>[class_files.length];
+			for (int i = 0; i < class_files.length; i++) {
+				classes[i] = xx.loadClass(package_path+"."+class_files[i].getName().substring(0, class_files[i].getName().length()-6));
+			}
+			
+			return classes;
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	public static Class<?>[] loadClassesByFolder(String path) {
+		File f = new File(path);
+		File[] class_files = f.listFiles(new FilenameFilter() {
+
+			@Override
+			public boolean accept(File dir, String name) {
+				return name.endsWith(".class");
+			}
+		});
+
+		Class<?>[] message_types = new Class[class_files.length];
+		int i = 0;
+		for (File file : class_files) {
+
+			try {
+				URL url = f.toURL();
+				URL[] urls = new URL[] { url };
+				URLClassLoader cl = new URLClassLoader(urls);
+				String className = file.getName().substring(0,
+						file.getName().length() - 6);
+				Class<?> cls = cl.loadClass(className);
+				message_types[i++] = cls;
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		return message_types;
 	}
 
 	public static Class[] loadClasses(File path) {

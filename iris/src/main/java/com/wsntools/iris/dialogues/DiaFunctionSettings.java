@@ -27,6 +27,7 @@ import com.wsntools.iris.data.FunctionAttribute;
 import com.wsntools.iris.data.Model;
 import com.wsntools.iris.interfaces.IRIS_Attribute;
 import com.wsntools.iris.interfaces.IRIS_FunctionModule;
+import com.wsntools.iris.interfaces.IRIS_Observer;
 import com.wsntools.iris.panels.PanelFilter;
 import com.wsntools.iris.panels.PanelMapping;
 import com.wsntools.iris.panels.PanelParameter;
@@ -103,10 +104,10 @@ public class DiaFunctionSettings extends JDialog {
 		// Build all subpanels with parameters and settings
 
 		// Create attributelist for comboboxes
-		// Filter out own attribute in the list
-		boolean attrexists = model.getMeasureAttribute(fa.getAttributeName(), false) != null;
 		int ind = 0;		
-		List<IRIS_Attribute> listattr = model.getMeasureAttributes(true);
+		List<IRIS_Attribute> listattr = model.getMeasureAttributesBySpecification(true, false, true, true, true, false);
+		// Filter out own attribute in the list
+		boolean attrexists = listattr.contains(model.getMeasureAttribute(fa.getAttributeName(), false));
 		String[] attrnames = new String[listattr.size() + (attrexists ? -1 : 0)];
 		for (int i = 0; i < listattr.size(); i++) {
 			String attrname = listattr.get(i).getAttributeName();
@@ -432,7 +433,7 @@ public class DiaFunctionSettings extends JDialog {
 					resultFuncSets.setFunctionFilter(null);
 				}
 
-				model.setCurrentMeasureIndex(model.getCurrentMeasureIndex());
+				model.updateObserver(IRIS_Observer.EVENT_ATTRIBUTE);
 
 			}
 		}

@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -59,6 +60,7 @@ public class DiaFunction extends JDialog implements IRIS_Observer {
 	
 	private JPanel panelToAttribute = new JPanel();	
 	private JComboBox comboToAttribute = new JComboBox();
+	private JLabel labelToAttribute = new JLabel("Scalar result - no update possible");
 	
 	private JPanel panelFunctionBrowser = new JPanel(new BorderLayout());
 	private JPanel panelBrowserTools = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -114,9 +116,9 @@ public class DiaFunction extends JDialog implements IRIS_Observer {
 		
 		//Add on functions with n -> n result mapping 
 		for(int i=0; i<model.getFunctionNames().length; i++) {
-			if(!model.getFunctionInstanceByName(model.getFunctionNames()[i]).isOneValueResult()) {
+			//if(!model.getFunctionInstanceByName(model.getFunctionNames()[i]).isOneValueResult()) {
 				comboFunctions.addItem(model.getFunctionNames()[i]);
-			}
+			//}
 		}
 		panelFunctionSelect.setBorder(javax.swing.BorderFactory.createTitledBorder("Select Function"));
 		panelFunctionSelect.add(comboFunctions);
@@ -125,17 +127,22 @@ public class DiaFunction extends JDialog implements IRIS_Observer {
 		textDescription.setEditable(false);
 		textDescription.setBackground(this.getBackground());
 		textDescription.setLineWrap(true);
+		textDescription.setWrapStyleWord(true);
 		scrollDescr.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		panelDescription.setBorder(javax.swing.BorderFactory.createTitledBorder("Function Information"));
 		panelDescription.add(scrollDescr);
 		
 		comboToAttribute.addItem("--New Attribute--");
-		for(int i=0; i<model.getFunctionAttributesInMeasurement().length; i++) {
-			comboToAttribute.addItem(model.getFunctionAttributesInMeasurement()[i].getAttributeName());
+		//List only non-scalar functions to update
+		List<IRIS_Attribute> funcList = model.getMeasureAttributesBySpecification(false, false, false, false, true, false);
+		for(int i=0; i<funcList.size(); i++) {
+			comboToAttribute.addItem(funcList.get(i).getAttributeName());
 		}			
 		comboToAttribute.setSelectedIndex(0);
+		labelToAttribute.setVisible(false);
 		panelToAttribute.setBorder(javax.swing.BorderFactory.createTitledBorder("Update existing Attribute"));
 		panelToAttribute.add(comboToAttribute);
+		panelToAttribute.add(labelToAttribute);
 		
 		panelSelection.add(panelFunctionSelect, BorderLayout.NORTH);
 		panelSelection.add(panelDescription, BorderLayout.CENTER);
@@ -235,17 +242,20 @@ public class DiaFunction extends JDialog implements IRIS_Observer {
 					//Get selected function
 					IRIS_FunctionModule func = model.getFunctionInstanceByName((String)comboFunctions.getSelectedItem());
 										
-					//Create attributelist for comboboxes
-					/*String[] attrlist = new String[model.getMeasureAttributeCount()];
-					List<RMT_Attribute> attr = model.getMeasureAttributes(true);
-					for(int i=0; i<model.getMeasureAttributeCount(); i++) {
-						attrlist[i] = model.getMeasureAttribute(i).getAttributeName();
-					}*/
-					
-					
-					//Set function description
-					textDescription.setText(func.getFunctionDescription());
-					textDescription.setCaretPosition(0);
+					if(func.isScalarValueResult()) {
+						comboToAttribute.setVisible(false);
+						labelToAttribute.setVisible(true);
+						//Set function description
+						textDescription.setText("+++Scalar Output+++\n" + func.getFunctionDescription());
+						textDescription.setCaretPosition(0);
+					}
+					else {
+						comboToAttribute.setVisible(true);
+						labelToAttribute.setVisible(false);
+						//Set function description
+						textDescription.setText(func.getFunctionDescription());
+						textDescription.setCaretPosition(0);
+					}										
 					
 					//Apply panel change
 					ref.pack();
@@ -283,7 +293,8 @@ public class DiaFunction extends JDialog implements IRIS_Observer {
 								
 				//Create new Attribute if selected
 				if(comboToAttribute.getSelectedIndex() == 0) {
-					FunctionAttribute fa = new FunctionAttribute(name, true, FunctionAttribute.OUTPUT_FLOAT, model.getFunctionInstanceByName((String)comboFunctions.getSelectedItem()));					
+					IRIS_FunctionModule module = model.getFunctionInstanceByName((String)comboFunctions.getSelectedItem());
+					FunctionAttribute fa = new FunctionAttribute(name, !module.isScalarValueResult(), FunctionAttribute.OUTPUT_FLOAT, module);					
 					
 					DiaFunctionSettings.showFunctionSettingsWindow(model, fa, -1, false);
 					model.addFunctionAttributeToMeasurement(fa);
@@ -292,8 +303,9 @@ public class DiaFunction extends JDialog implements IRIS_Observer {
 				
 				//Else update chosen attribute
 				else {					
-						FunctionAttribute fa = (FunctionAttribute)model.getMeasureAttribute((String)comboToAttribute.getSelectedItem(), true);
-						fa.addNewFunction(name, true, FunctionAttribute.OUTPUT_FLOAT, model.getFunctionInstanceByName((String)comboFunctions.getSelectedItem()));
+						FunctionAttribute fa = (FunctionAttribute)model.getMeasureAttribute((String)comboToAttribute.getSelectedItem(), false);
+						IRIS_FunctionModule module = model.getFunctionInstanceByName((String)comboFunctions.getSelectedItem());
+						fa.addNewFunction(name, !module.isScalarValueResult(), FunctionAttribute.OUTPUT_FLOAT, module);
 						
 						DiaFunctionSettings.showFunctionSettingsWindow(model, fa, fa.getUsedFunctionCount()-1, false);
 						updateNewAttribute();
@@ -406,8 +418,10 @@ public class DiaFunction extends JDialog implements IRIS_Observer {
 		
 		comboToAttribute.removeAllItems();
 		comboToAttribute.addItem("--New Attribute--");
-		for(int i=0; i<model.getFunctionAttributesInMeasurement().length; i++) {
-			comboToAttribute.addItem(model.getFunctionAttributesInMeasurement()[i].getAttributeName());
+		//List only non-scalar functions to update
+		List<IRIS_Attribute> funcList = model.getMeasureAttributesBySpecification(false, false, false, false, true, false);
+		for(int i=0; i<funcList.size(); i++) {
+			comboToAttribute.addItem(funcList.get(i).getAttributeName());
 		}			
 		comboToAttribute.setSelectedIndex(0);
 		

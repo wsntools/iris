@@ -24,6 +24,7 @@ import javax.swing.SwingConstants;
 
 import com.wsntools.iris.data.AliasAttribute;
 import com.wsntools.iris.data.Constants;
+import com.wsntools.iris.data.Measurement;
 import com.wsntools.iris.data.Model;
 import com.wsntools.iris.dialogues.DiaFunction;
 import com.wsntools.iris.dialogues.DiaHideAttributes;
@@ -35,13 +36,42 @@ import com.wsntools.iris.interfaces.IRIS_Attribute;
 import com.wsntools.iris.interfaces.IRIS_Observer;
 import com.wsntools.iris.modules.gui.packetexplorer.table.PacketTableModel;
 import com.wsntools.iris.modules.gui.packetexplorer.table.PacketTableView;
+import com.wsntools.iris.tools.FilterTool;
 
 public class GUI_PacketExplorer extends IRIS_GUIModule implements IRIS_Observer {
 
 	private static final float EMPTY_NUMBER = Float.NaN;
+	private GUI_PacketExplorer ref = this;
+	
+	private final IRIS_ModuleInfo[] moduleInfos = new IRIS_ModuleInfo[] {
+			new IRIS_ModuleInfo() {				
+				@Override
+				public String getResult(Measurement meas) {
+					return (model.getMeasureAttributeCount(true) - attributeHideList.size()) + "/" + model.getMeasureAttributeCount(true);
+				}
+				
+				@Override
+				public String getModuleInfoName() {					
+					return "Displayed/Total Attributes";
+				}
+			},
+			new IRIS_ModuleInfo() {				
+				@Override
+				public String getResult(Measurement meas) {
+					return (packetsDisplayed + "/" + meas.getNumberOfPackets());
+				}
+				
+				@Override
+				public String getModuleInfoName() {					
+					return "Displayed/Total Packets";
+				}
+			}
+	};
 	
 	private ArrayList<IRIS_Attribute> attributeHideList;
 	private Map<IRIS_Attribute, List<float[]>> attributeFilterList;
+	//Statistic
+	private int packetsDisplayed;
 	
 	private JPanel panelPacketExplorer;
 	private PacketTableModel measureModel;
@@ -55,8 +85,8 @@ public class GUI_PacketExplorer extends IRIS_GUIModule implements IRIS_Observer 
 	private JButton butFilter = new JButton("Filter");
 	private JButton butHide = new JButton("Hide");
 	private JButton butRemoveSettings = new JButton(new ImageIcon(Constants.getResource(
-			Constants.getPathPicsButtons() + Constants.getNameBtnDelete())));
-	
+			Constants.getPathPicsButtons() + Constants.getNameBtnDelete())));	
+		
 	private ButtonListener listenerButtons = new ButtonListener();
 	
 	public GUI_PacketExplorer(Model m) {		
@@ -118,12 +148,11 @@ public class GUI_PacketExplorer extends IRIS_GUIModule implements IRIS_Observer 
 	@Override
 	public IRIS_Observer getModuleObserver() {
 		return this;
-	}
-
+	}	
+	
 	@Override
 	public IRIS_ModuleInfo[] getRelatedModuleInfos() {
-		// TODO Auto-generated method stub
-		return null;
+		return moduleInfos;
 	}
 	
 	@Override
@@ -144,10 +173,12 @@ public class GUI_PacketExplorer extends IRIS_GUIModule implements IRIS_Observer 
 	//Own methods
 	private void genericUpdate() {
 		//TODO Caching for performance
-		
-		PacketTableModel new_measuremodel = new PacketTableModel(model.getMeasureAttributeCount(true) - attributeHideList.size());
+				
 		//System.out.println("attribute count: "+ model.getCurrentMeasurement().getAttributeCount());
-		List<IRIS_Attribute> attributes = model.getMeasureAttributes(true);
+		//Get all but non scalar function attributes
+		List<IRIS_Attribute> attributes = model.getMeasureAttributesBySpecification(true, true, true, true, true, false);
+		
+		PacketTableModel new_measuremodel = new PacketTableModel(attributes.size() - attributeHideList.size());
 		
 		List<String> attr_names = new ArrayList<>();
 
@@ -199,13 +230,14 @@ public class GUI_PacketExplorer extends IRIS_GUIModule implements IRIS_Observer 
 				}
 				new_measuremodel.addMeasurement(column);
 			}
-		}		
+		}
+		packetsDisplayed = model.getCurrentMeasurement().getNumberOfPackets() - rowsToFilterOut.size();
 		this.measureModel = new_measuremodel;
 		ppm.updateData(measureModel);
 	}
 	
 	//Assumes a clean and not overlapping range of values within allowedRange
-	private boolean passesFilter(List<float[]> allowedRange, float toCheck ) {
+	private boolean passesFilter(List<float[]> allowedRange, float toCheck) {
 		for(float[] arrRange:allowedRange) {
 			//Instantly return true, if one of the filter criteria is met, otherwise continue
 			if ((arrRange[0] <= toCheck) && (toCheck <= arrRange[1])) return true;
@@ -241,7 +273,7 @@ public class GUI_PacketExplorer extends IRIS_GUIModule implements IRIS_Observer 
 		genericUpdate();
 	}
 
-	class ButtonListener implements ActionListener {
+	private class ButtonListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent ae) {
 
@@ -250,12 +282,13 @@ public class GUI_PacketExplorer extends IRIS_GUIModule implements IRIS_Observer 
 				attributeFilterList = DiaSetFilter.showFilterSettingWindow(model, attributeFilterList);
 				butFilter.setBackground(attributeFilterList.isEmpty() ? null : Color.GREEN);
 				butRemoveSettings.setVisible(!(attributeFilterList.isEmpty() && attributeHideList.isEmpty()));
-				genericUpdate();
+				genericUpdate();				
 			}
 			
 			else if (o.equals(butHide)) {
-				IRIS_Attribute[] attributes = new IRIS_Attribute[model.getMeasureAttributes(true).size()];
-				attributes = model.getMeasureAttributes(true).toArray(attributes);
+				List<IRIS_Attribute> listOfAttributes = model.getMeasureAttributesBySpecification(true, true, true, true, true, false);
+				IRIS_Attribute[] attributes = new IRIS_Attribute[listOfAttributes.size()];
+				attributes = listOfAttributes.toArray(attributes);
 				boolean[] checked = new boolean[attributes.length];
 				for(int i=0; i<attributes.length; i++) checked[i] = !attributeHideList.contains(attributes[i]);
 				checked = DiaHideAttributes.showHideAttibuteWindow(model, attributes, checked);

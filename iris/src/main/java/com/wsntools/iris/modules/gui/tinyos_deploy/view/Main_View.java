@@ -1,7 +1,7 @@
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-package com.wsntools.iris.tools.tinyos_deploy.view;
+package com.wsntools.iris.modules.gui.tinyos_deploy.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -26,9 +26,9 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 
-import com.wsntools.iris.tools.tinyos_deploy.controller.Controller;
-import com.wsntools.iris.tools.tinyos_deploy.model.Mapping3;
-import com.wsntools.iris.tools.tinyos_deploy.model.MappingTableModel;
+import com.wsntools.iris.modules.gui.tinyos_deploy.controller.Controller;
+import com.wsntools.iris.modules.gui.tinyos_deploy.model.Mapping3;
+import com.wsntools.iris.modules.gui.tinyos_deploy.model.MappingTableModel;
 
 public class Main_View extends JFrame implements Observer {
 	private static final long serialVersionUID = 1133005594522085171L;

@@ -74,7 +74,7 @@ public class DiaLoggerSettings extends JDialog {
 		
 		String[] entries = new String[currentConfig.size()];
 		for(int i=0; i<currentConfig.size(); i++) {
-			entries[i] = "Logging " + (i+1) + "( ";
+			entries[i] = "Logging " + (i+1) + " ( ";
 			for(IRIS_Attribute attr:currentConfig.get(i)) entries[i] += attr.getAttributeName() + " ";
 			entries[i] += ")";
 			mapOfLoggingFiles.put(entries[i], currentConfig.get(i));
@@ -140,6 +140,13 @@ public class DiaLoggerSettings extends JDialog {
 		else
 			return initialLoggingFiles;
 	}
+	
+	private boolean isAtLeastOneBexChecked() {
+		for(JCheckBox box: arrCheckBoxes) {
+			if (box.isSelected()) return true;
+		}
+		return false;
+	}
 
 	
 	private class ButtonListener implements ActionListener {
@@ -154,6 +161,7 @@ public class DiaLoggerSettings extends JDialog {
 				ref.dispose();
 			}
 			else if(ae.getSource().equals(butAdd)) {
+				if(!isAtLeastOneBexChecked()) return;
 				ArrayList<IRIS_Attribute> listOfLogging = new ArrayList<IRIS_Attribute>();
 				String entry, attribute = "";
 				for(int i=0; i<arrCheckBoxes.length; i++) {
@@ -162,16 +170,16 @@ public class DiaLoggerSettings extends JDialog {
 						attribute += attributes.get(i).getAttributeName() + " ";
 					}
 				}
-				entry = "Logging " + (number++) + "( " + attribute + " )";
+				entry = "Logging " + (number++) + " ( " + attribute + " )";
 				IRIS_Attribute[] arrAttr = new IRIS_Attribute[listOfLogging.size()];
 				arrAttr = listOfLogging.toArray(arrAttr);
 				mapOfLoggingFiles.put(entry, arrAttr);
 				comboLoggingFiles.addItem(entry);
 			}
 			else if(ae.getSource().equals(butDel)) {
+				if(comboLoggingFiles.getSelectedIndex() == -1) return;
 				mapOfLoggingFiles.remove((String)comboLoggingFiles.getSelectedItem());
-				comboLoggingFiles.removeItem(comboLoggingFiles.getSelectedIndex());
-				ref.dispose();
+				comboLoggingFiles.removeItemAt(comboLoggingFiles.getSelectedIndex());
 			}
 			
 			else if(ae.getSource().equals(comboLoggingFiles)) {

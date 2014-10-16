@@ -51,7 +51,7 @@ public class Func_OneVal_Sum extends FunctionBasic implements IRIS_FunctionModul
 	}
 
 	@Override
-	public boolean isOneValueResult() {
+	public boolean isScalarValueResult() {
 		
 		return true;
 	}

@@ -11,14 +11,12 @@ import javax.swing.JTextField;
 
 import com.wsntools.iris.tools.ModuleLoader;
 import com.wsntools.iris.tools.datacollector.sending.AbstractEncoder;
-import com.wsntools.iris.tools.datacollector.util.ClassLoader;
 import com.wsntools.iris.tools.datacollector.util.MethodWrapper;
 
 import net.tinyos.message.Message;
 
 public class TinyOSEncoder extends AbstractEncoder {
 
-	public static final String MESSAGES_PATH = "/home/sasa/Arbeit/message_classes/";
 	Message message = null;
 	private byte[] data = null;
 
@@ -28,13 +26,12 @@ public class TinyOSEncoder extends AbstractEncoder {
 
 	@Override
 	public byte[] encode() {
-//		Class<?>[] message_list = ClassLoader.loadClassesByFolder(MESSAGES_PATH);
 		Class<?>[] message_list = ModuleLoader.getRadioLinkMessageClassesForReceiving();
 		
 		Object selection = null;
 		do {
 			selection = JOptionPane.showInputDialog(null,
-					"Please choose a Message type", "",
+					"Please choose a Message type", "IRIS - TinyOSEncoder - Select Encoding Message",
 					JOptionPane.PLAIN_MESSAGE, null, message_list, null);
 			if (selection == null)
 				return null;

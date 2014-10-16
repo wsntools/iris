@@ -134,16 +134,6 @@ public class FunctionAttribute implements IRIS_Attribute {
 		
 		return res;
 	}
-	//Returns prediction value count of the last used function
-	public int getPredictionValueCount() {
-		
-		return functionAppliance.get(functionAppliance.size()-1).getPredictionValues().length;
-	}
-	public float[] getPredictionValues() {
-		
-		return functionAppliance.get(functionAppliance.size()-1).getPredictionValues();
-	}
-	
 	public void setFunctionInformation(int index, IRIS_Attribute[] newAttr, float[] newSets) {
 	
 		//Before saving, search for null references in parameters(= this-reference)
@@ -159,10 +149,25 @@ public class FunctionAttribute implements IRIS_Attribute {
 		//Clear packet history
 		packetHistory.clear();
 	}
+
+	//Returns prediction value count of the last used function
+	public int getPredictionValueCount() {
+		
+		return functionAppliance.get(functionAppliance.size()-1).getPredictionValues().length;
+	}
+	public float[] getPredictionValues() {
+		
+		return functionAppliance.get(functionAppliance.size()-1).getPredictionValues();
+	}
 	
 	public void renameFunctionAttribute(String newname) {
 		
 		name = newname;
+	}
+	
+	public boolean isScalarValueResult() {
+		
+		return functionAppliance.get(functionAppliance.size()-1).isScalarValueResult();
 	}
 	
 	public void resetPacketCache() {
@@ -201,6 +206,10 @@ public class FunctionAttribute implements IRIS_Attribute {
 		
 	}
 	
+	public IRIS_Attribute[] getParameter(int index) {
+		return parameters.get(index);
+	}
+	
 	//Builds a String of dependencies this attribute has
 	public String getParameterDependencies() {
 		
@@ -209,9 +218,9 @@ public class FunctionAttribute implements IRIS_Attribute {
 			
 			res = res + (i+1) + ") " + functionAppliance.get(i).getFunctionName() + "\nP: ";
 			for(int j=0; j<parameters.get(i).length; j++) {
-				res = res + parameters.get(i)[j].getAttributeName() + " ";
+				res += parameters.get(i)[j].getAttributeName() + " ";
 			}
-			res = res + "\n\n";
+			res += "\n\n";
 		}
 		
 		return res;
@@ -442,17 +451,23 @@ public class FunctionAttribute implements IRIS_Attribute {
 		float[] preds = functionAppliance.get(functionAppliance.size()-1).getPredictionValues();
 		int ind = 0;
 		
-		res2 = new String[p.length + ((preds.length > 0) ? (preds.length +1) : 0)];
-		for(int i=0; i<p.length; i++) {
-							
-			if (funcFilter == null | funcFilterPassingIndices.contains(i)) {					
-				res2[i] = Float.toString(val[funcFilterPassingIndices.indexOf(i)]);
+		if(isScalarValueResult() && val.length != 0) {
+			res2 = new String[val.length + ((preds.length > 0) ? (preds.length +1) : 0)];
+			res2[0] = Float.toString(val[0]);
+		}
+		else {
+			res2 = new String[p.length + ((preds.length > 0) ? (preds.length +1) : 0)];
+			for(int i=0; i<p.length; i++) {
+								
+				if (funcFilter == null | funcFilterPassingIndices.contains(i)) {					
+					res2[i] = Float.toString(val[funcFilterPassingIndices.indexOf(i)]);
+				}
+				//If not, use '-' instead
+				else {
+					res2[i] = "-";
+				}
+				//System.out.println(res2[i]);
 			}
-			//If not, use '-' instead
-			else {
-				res2[i] = "-";
-			}
-			//System.out.println(res2[i]);
 		}
 		
 		//Finally add prediction values if available

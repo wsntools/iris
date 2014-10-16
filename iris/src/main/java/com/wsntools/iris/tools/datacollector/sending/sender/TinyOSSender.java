@@ -22,31 +22,31 @@ public class TinyOSSender implements ISender {
 		
 		this.encoder = encoder;
 		byte[] data = encoder.getBytes();
-		//create connection to source
-		PhoenixSource phoenix = BuildSource.makePhoenix(port,
-				PrintStreamMessenger.err);
-		MoteIF mif = new MoteIF(phoenix);
-		
-		//create Message Object from byte array
-		Message mes = new Message(data);
-		
-		if (encoder instanceof TinyOSEncoder) {
-			TinyOSEncoder tosenc = (TinyOSEncoder)encoder;
-			mes = tosenc.getMessage();
-		}
-		
-		
-		
-		
+		PhoenixSource phoenix = null;
+		MoteIF mif = null;
 		try {
+			//create connection to source
+			phoenix = BuildSource.makePhoenix(port,
+					PrintStreamMessenger.err);
+			mif = new MoteIF(phoenix);
+			
+			//create Message Object from byte array
+			Message mes = new Message(data);
+			
+			if (encoder instanceof TinyOSEncoder) {
+				TinyOSEncoder tosenc = (TinyOSEncoder)encoder;
+				mes = tosenc.getMessage();
+			}
 			//send Message
 			mif.send(MoteIF.TOS_BCAST_ADDR, mes);
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (NullPointerException npe) {
+			System.err.println("Message could not be sent");
 		} finally {
 			//shutdown connection
 			mif = null;
-			phoenix.shutdown();
+			if(phoenix != null) phoenix.shutdown();
 			phoenix = null;
 		}
 

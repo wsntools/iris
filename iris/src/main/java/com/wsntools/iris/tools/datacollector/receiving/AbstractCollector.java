@@ -14,5 +14,6 @@ public abstract class AbstractCollector {
 		return port;
 	}
 	public abstract void messageReceived(HashMap<String, Object> rec_values);
+	public abstract void closeConnection();
 		
 }

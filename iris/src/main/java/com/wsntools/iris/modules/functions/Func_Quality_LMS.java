@@ -166,7 +166,7 @@ public class Func_Quality_LMS extends FunctionBasic implements
 	}
 
 	@Override
-	public boolean isOneValueResult() {
+	public boolean isScalarValueResult() {
 
 		return false;
 	}

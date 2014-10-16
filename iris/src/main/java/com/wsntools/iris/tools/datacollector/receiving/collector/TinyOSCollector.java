@@ -11,7 +11,6 @@ import com.wsntools.iris.tools.ModuleLoader;
 import com.wsntools.iris.tools.datacollector.receiving.AbstractCollector;
 import com.wsntools.iris.tools.datacollector.receiving.AbstractDecoder;
 import com.wsntools.iris.tools.datacollector.receiving.MetaDataCollector;
-import com.wsntools.iris.tools.datacollector.util.ClassLoader;
 
 import net.tinyos.message.Message;
 import net.tinyos.message.MessageListener;
@@ -21,7 +20,6 @@ import net.tinyos.util.PrintStreamMessenger;
 
 public class TinyOSCollector extends AbstractCollector implements
 		MessageListener {
-	public static final String MESSAGES_PATH = "/home/sasa/Arbeit/message_classes/";
 
 	private MoteIF mote;
 	private Class<Message>[] message_types;
@@ -32,7 +30,6 @@ public class TinyOSCollector extends AbstractCollector implements
 		super(port);
 		this.parent_collector = parent_collector;
 		decoder = createDecoder(decoder_type);
-//		message_types = (Class<Message>[]) ClassLoader.loadClassesByFolder(MESSAGES_PATH);
 		message_types = ModuleLoader.getRadioLinkMessageClassesForReceiving();
 		startListening();
 	}
@@ -42,8 +39,7 @@ public class TinyOSCollector extends AbstractCollector implements
 			try {
 				mote = new MoteIF(BuildSource.makePhoenix(port,
 						PrintStreamMessenger.err));
-				Message messageType = type.cast(type.newInstance())
-						.getClass().newInstance();
+				Message messageType = type.cast(type.newInstance()).getClass().newInstance();
 				mote.registerListener(messageType, this);
 
 			} catch (InstantiationException | IllegalAccessException e) {
@@ -68,6 +64,21 @@ public class TinyOSCollector extends AbstractCollector implements
 	@Override
 	public void messageReceived(HashMap<String, Object> rec_values) {
 		parent_collector.messageReceived(rec_values);
+	}
+
+	@Override
+	public void closeConnection() {
+		//Unregister all messages and shutdown the connection
+		for (Class<Message> type : message_types)
+			try {
+				mote = new MoteIF(BuildSource.makePhoenix(port,
+						PrintStreamMessenger.err));
+				Message messageType = type.cast(type.newInstance()).getClass().newInstance();
+				mote.deregisterListener(messageType, this);
+			} catch (InstantiationException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		mote.getSource().shutdown();
 	}
 
 }

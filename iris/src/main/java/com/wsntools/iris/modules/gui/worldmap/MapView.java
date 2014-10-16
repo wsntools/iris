@@ -113,6 +113,6 @@ public class MapView extends JPanel implements IRIS_Observer {
 
 	@Override
 	public void updateNewAttribute() {
-		//Do nothing since there is no dependency on other attributes
+		genericUpdate();
 	}
 }

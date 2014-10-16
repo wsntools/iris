@@ -52,7 +52,7 @@ public class Func_CC2420_Noise extends FunctionBasic implements IRIS_FunctionMod
 	}
 
 	@Override
-	public boolean isOneValueResult() {
+	public boolean isScalarValueResult() {
 
 		return false;
 	}

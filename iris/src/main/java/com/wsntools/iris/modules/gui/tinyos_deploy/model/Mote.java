@@ -1,7 +1,7 @@
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-package com.wsntools.iris.tools.tinyos_deploy.model;
+package com.wsntools.iris.modules.gui.tinyos_deploy.model;
 /**
  * Represents a WSN node connected to the system.
  * @author Sascha Hevelke

@@ -4,7 +4,6 @@
 package com.wsntools.iris.interfaces;
 /**
  * @author Sascha Jungen
- * M#2242754
  *
  */
 import com.wsntools.iris.data.Measurement;
@@ -15,7 +14,7 @@ public interface IRIS_ModuleInfo {
 	 * Return the description of the displayed information (e.g. Package Number)
 	 * @return
 	 */
-	public String getMeasureInfoName();
+	public String getModuleInfoName();
 	
 	/**
 	 * Returns the computed necessary information with the given measurement

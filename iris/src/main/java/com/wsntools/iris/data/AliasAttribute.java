@@ -11,35 +11,64 @@ import com.wsntools.iris.interfaces.IRIS_Attribute;
 
 public class AliasAttribute implements IRIS_Attribute {
 
+	public static final int ALIAS_USER = 1;
+	public static final int ALIAS_GUI = 2;
+	public static final int ALIAS_FIXED = 3;
+	
 	private Model model;
 	
 	private String name;
 	private String description;
 	
-	private boolean isGUIRequired;
+	private int aliasType;
 	
 	private Map<Measurement, IRIS_Attribute> mapMeasurementToAttribute;
 	
-	public AliasAttribute(Model m, String attname, boolean guirequired, String attdesc) {
+	public AliasAttribute(Model m, String attname, int aliastype, String attdesc) {
 		model = m;
-		name = (guirequired ? Constants.getAttrGuiAliasPrefix() : Constants.getAttrUserAliasPrefix()) + attname;		
+		aliasType = aliastype;
+		setAliasAttributeName(attname);	
 		description = attdesc;
-		isGUIRequired = guirequired;
 		mapMeasurementToAttribute = new HashMap<Measurement, IRIS_Attribute>();
 	}
 	
 	public void setAliasAttributeName(String newName) {
 		
-		name = (isGUIRequired ? Constants.getAttrGuiAliasPrefix() : Constants.getAttrUserAliasPrefix()) + newName;
+		switch(aliasType) {
+		case(ALIAS_USER):
+			name = Constants.getAttrUserAliasPrefix() + newName;
+			break;
+		case(ALIAS_GUI):
+			name = Constants.getAttrGuiAliasPrefix() + newName;
+			break;
+		case(ALIAS_FIXED):
+			name = Constants.getAttrFixedAliasPrefix() + newName;
+			break;
+		}		
 	}
 	public String getAliasAttributeDescription() {
 		
 		return description;
 	}
 	
+	public int getAliasType() {
+		
+		return aliasType;
+	}
+	
+	public boolean isUserAlias() {
+		
+		return (aliasType == ALIAS_USER);
+	}
+	
 	public boolean isGUIRequiredAlias() {
 		
-		return isGUIRequired;
+		return (aliasType == ALIAS_GUI);
+	}
+	
+	public boolean isFixedAlias() {
+		
+		return (aliasType == ALIAS_FIXED);
 	}
 	
 	//Extended Mapping Functions

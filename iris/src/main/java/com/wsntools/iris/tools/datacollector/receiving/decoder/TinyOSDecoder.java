@@ -10,7 +10,6 @@ import java.util.HashMap;
 import com.wsntools.iris.tools.datacollector.receiving.AbstractCollector;
 import com.wsntools.iris.tools.datacollector.receiving.AbstractDecoder;
 import com.wsntools.iris.tools.datacollector.receiving.collector.TinyOSCollector;
-import com.wsntools.iris.tools.datacollector.util.ClassLoader;
 import com.wsntools.iris.tools.datacollector.util.MethodWrapper;
 
 import net.tinyos.message.Message;

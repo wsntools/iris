@@ -3,26 +3,30 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 package com.wsntools.iris.modules.attributes;
 
+import com.wsntools.iris.data.FixedAttribute;
 import com.wsntools.iris.data.Packet;
 import com.wsntools.iris.interfaces.IRIS_Attribute;
 
-public class AttrPacketIndex implements IRIS_Attribute {
-
-	@Override
-	public String[] getValuesString(Packet[] p) {		
-		String[] res = new String[p.length];
-		for(int i=0; i<p.length; i++) {
-			res[i] = Integer.toString(i);
-		}
-		return res;
-	}
+public class AttrPacketIndex extends FixedAttribute implements IRIS_Attribute {
 
 	@Override
 	public String getAttributeName() {
 		
-		return "Index";
+		return "SequenceNo";
 	}
 
+	@Override
+	public float[] getValues(Packet[] p) {
+
+		return super.getValues(p);
+	}
+
+	@Override
+	public String[] getValuesString(Packet[] p) {
+		
+		return super.getValuesString(p, true);
+	}
+	
 	@Override
 	public boolean isDrawable() {
 
@@ -37,27 +41,8 @@ public class AttrPacketIndex implements IRIS_Attribute {
 
 	@Override
 	public boolean isNormalAttribute() {
-
-		return true;
-	}
-
-	@Override
-	public float[] getValues(Packet[] p) {
-		float[] res = new float[p.length];
-		for(int i=0; i<p.length; i++) {
-			res[i] = i;
-		}
-		return res;
-	}
-
-	@Override
-	public void setMappingAttribute(IRIS_Attribute att) {
 		
-	}
-
-	@Override
-	public IRIS_Attribute getMappingAttribute() {
-		return null;
+		return false;
 	}
 
 }

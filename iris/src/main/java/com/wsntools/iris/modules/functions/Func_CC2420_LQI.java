@@ -53,7 +53,7 @@ public class Func_CC2420_LQI extends FunctionBasic implements IRIS_FunctionModul
 	}
 
 	@Override
-	public boolean isOneValueResult() {
+	public boolean isScalarValueResult() {
 
 		return false;
 	}

@@ -69,7 +69,7 @@ public class Func_Basic_Accumulate extends FunctionBasic implements
 	}
 
 	@Override
-	public boolean isOneValueResult() {
+	public boolean isScalarValueResult() {
 
 		return false;
 	}

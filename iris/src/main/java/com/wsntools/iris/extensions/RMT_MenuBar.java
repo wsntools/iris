@@ -93,8 +93,8 @@ public class RMT_MenuBar extends JMenuBar {
 		importMenu.setMnemonic(KeyEvent.VK_I);
 		this.add(importMenu);
 
-		importFromWise = new JMenuItem("From WISEML");
-		importFromTrace = new JMenuItem("From Trace");
+		importFromWise = new JMenuItem("Measure from WISEML");
+		importFromTrace = new JMenuItem("Measure from Trace");
 
 		importMenu.add(importFromWise);
 		importMenu.add(importFromTrace);
@@ -105,8 +105,8 @@ public class RMT_MenuBar extends JMenuBar {
 		exportMenu.setMnemonic(KeyEvent.VK_E);
 		this.add(exportMenu);
 
-		exportToWise = new JMenuItem("To WISEML");
-		exportToTrace = new JMenuItem("To Trace");
+		exportToWise = new JMenuItem("Measure to WISEML");
+		exportToTrace = new JMenuItem("Measure to Trace");
 
 		exportMenu.add(exportToWise);
 		exportMenu.add(exportToTrace);
@@ -200,7 +200,8 @@ public class RMT_MenuBar extends JMenuBar {
 						todel--;
 					}
 				}			
-			} else if (ae.getSource().equals(fileQuit)) {
+			}
+			else if (ae.getSource().equals(fileQuit)) {
 				model.getView().SafeCloseOperation();
 			}
 

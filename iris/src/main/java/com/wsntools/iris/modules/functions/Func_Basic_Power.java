@@ -53,7 +53,7 @@ public class Func_Basic_Power extends FunctionBasic implements IRIS_FunctionModu
 	}
 
 	@Override
-	public boolean isOneValueResult() {
+	public boolean isScalarValueResult() {
 		
 		return false;
 	}

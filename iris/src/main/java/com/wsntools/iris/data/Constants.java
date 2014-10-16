@@ -25,19 +25,35 @@ public class Constants {
 	private static final int PACKET_ARRAY_START_SIZE = 200;
 	private static final int PACKET_BUFFER_MAX_SIZE = 100;
 	private static final float PACKET_DEFAULT_EMPTY_NUMBER = (float) -0.0;
-	private static final int CHART_MAX_BARS = 100;	
+	private static final int CHART_MAX_BARS = 100;
+	private static final int MODULEINFO_UPDATE_TIMER_INTERVAL = 2000; //Time in milliseconds between automatic timer refreshes
 
+	//Initial values
+	private static final String[] ATTR_FIXED_ALIASES = {"SequenceNo", "SenderID"}; 
+	
 	//Relevant constants for file structures
 	private static final String TRACE_ATTRIBUTE_SEPARATOR = ", ";
 	private static final String TRACE_DATA_SEPARATOR = "\t";
 	
 	private static final String ATTR_USER_ALIAS_PREFIX = "[USR]";
 	private static final String ATTR_GUI_ALIAS_PREFIX = "[GUI]";
+	private static final String ATTR_FIXED_ALIAS_PREFIX = "[FIX]";
 	
 	private static final String NAMING_ALLOWED_CHARS = "[0123456789a-zA-Z _\\-]+";
 	
 	private static final String LOGGING_VALUE_SEPARATOR = ";";
 
+	//Packages
+	private static final String NET_SENDING_SENDER_PACKAGE = "com.wsntools.iris.tools.datacollector.sending.sender";
+	private static final String NET_SENDING_ENCODER_PACKAGE = "com.wsntools.iris.tools.datacollector.sending.encoder";
+	private static final String NET_RECEIVING_COLLECTOR_PACKAGE = "com.wsntools.iris.tools.datacollector.receiving.collector";
+	private static final String NET_RECEIVING_DECODER_PACKAGE = "com.wsntools.iris.tools.datacollector.receiving.decoder";
+	
+	private static final String IF_ATTR_PACKAGE = "com.wsntools.iris.interfaces.IRIS_Attribute";
+	private static final String IF_FUNC_PACKAGE = "com.wsntools.iris.interfaces.IRIS_FunctionModule";
+	private static final String IF_GUIMODULE_PACKAGE = "com.wsntools.iris.interfaces.IRIS_GUIModule";
+	private static final String IF_INFO_PACKAGE = "com.wsntools.iris.interfaces.IRIS_ModuleInfo";
+	
 	//All relevant constants for picture and save directories
 	private static final String SEP = System.getProperty("file.separator");
 //	private static final String CUR_DIR = System.getProperty("user.dir"); //TODO this does not work within a jar
@@ -133,7 +149,7 @@ public class Constants {
 	
 	public static URL getResource(String Path) {
 //		return Thread.currentThread().getContextClassLoader().getResource(Path);
-		return ClassLoader.getSystemResource(Path);
+		return Constants.class.getClassLoader().getResource(Path);
 	}
 
 	public static int getPacketArrayStartSize() {
@@ -152,6 +168,14 @@ public class Constants {
 		return CHART_MAX_BARS;
 	}
 
+	public static int getModuleinfoUpdateTimerInterval() {
+		return MODULEINFO_UPDATE_TIMER_INTERVAL;
+	}
+
+	public static String[] getAttrFixedAliases() {
+		return ATTR_FIXED_ALIASES;
+	}
+
 	public static String getTraceAttributeSeparator() {
 		return TRACE_ATTRIBUTE_SEPARATOR;
 	}
@@ -168,12 +192,48 @@ public class Constants {
 		return ATTR_GUI_ALIAS_PREFIX;
 	}
 
+	public static String getAttrFixedAliasPrefix() {
+		return ATTR_FIXED_ALIAS_PREFIX;
+	}
+
 	public static String getNamingAllowedChars() {
 		return NAMING_ALLOWED_CHARS;
 	}
 
 	public static String getLoggingValueSeparator() {
 		return LOGGING_VALUE_SEPARATOR;
+	}
+
+	public static String getNetSendingSenderPackage() {
+		return NET_SENDING_SENDER_PACKAGE;
+	}
+
+	public static String getNetSendingEncoderPackage() {
+		return NET_SENDING_ENCODER_PACKAGE;
+	}
+
+	public static String getNetReceivingCollectorPackage() {
+		return NET_RECEIVING_COLLECTOR_PACKAGE;
+	}
+
+	public static String getNetReceivingDecoderPackage() {
+		return NET_RECEIVING_DECODER_PACKAGE;
+	}
+
+	public static String getIfAttrPackage() {
+		return IF_ATTR_PACKAGE;
+	}
+
+	public static String getIfFuncPackage() {
+		return IF_FUNC_PACKAGE;
+	}
+
+	public static String getIfGuimodulePackage() {
+		return IF_GUIMODULE_PACKAGE;
+	}
+
+	public static String getIfInfoPackage() {
+		return IF_INFO_PACKAGE;
 	}
 
 	public static String getSep() {

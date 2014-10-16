@@ -52,7 +52,7 @@ public class Func_SHT1x_Temperature extends FunctionBasic implements IRIS_Functi
 	}
 
 	@Override
-	public boolean isOneValueResult() {
+	public boolean isScalarValueResult() {
 
 		return false;
 	}

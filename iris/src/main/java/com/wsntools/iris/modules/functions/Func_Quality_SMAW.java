@@ -88,7 +88,7 @@ public class Func_Quality_SMAW extends FunctionBasic implements
 	}
 
 	@Override
-	public boolean isOneValueResult() {
+	public boolean isScalarValueResult() {
 		return false;
 	}
 

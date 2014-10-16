@@ -4,6 +4,7 @@
 package com.wsntools.iris.views;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -18,15 +19,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import com.wsntools.iris.data.Model;
+import com.wsntools.iris.dialogues.DiaSelectGUI;
 import com.wsntools.iris.extensions.RMT_MenuBar;
 import com.wsntools.iris.interfaces.IRIS_GUIModule;
 import com.wsntools.iris.panels.PanelMeasureInfo;
-import com.wsntools.iris.panels.PanelTestBarPacketInsertion;
 import com.wsntools.iris.panels.PanelToolBar;
 import com.wsntools.iris.tools.Tools;
 
 /**
- * @author Sascha Jungen M#2242754
+ * @author Sascha Jungen
  * 
  */
 public class ViewMain extends JFrame {
@@ -49,8 +50,6 @@ public class ViewMain extends JFrame {
 	private JPanel panelMain = new JPanel(new BorderLayout());
 
 	private JPanel panelUpper = new JPanel();
-	//TODO For testing
-	private PanelTestBarPacketInsertion panelTestbar;
 	private PanelToolBar panelTool;
 	
 	private JPanel panelGUIElements = new JPanel();
@@ -70,15 +69,13 @@ public class ViewMain extends JFrame {
 		guiSubframes = new HashMap<IRIS_GUIModule, ViewModule>();
 		
 		panelTool = new PanelToolBar(model);
-		panelMeasureInfo = new PanelMeasureInfo(model);
-		panelTestbar = new PanelTestBarPacketInsertion(model);
+		panelMeasureInfo = new PanelMeasureInfo(model, false);
 
 		//Menubar
 		menuBar = new RMT_MenuBar(model);
 		this.setJMenuBar(menuBar);
 
 		//Paneldesign
-		panelUpper.add(panelTestbar);
 		panelUpper.add(panelTool);
 		
 		panelGUIElements.setLayout(new BoxLayout(panelGUIElements, BoxLayout.X_AXIS));
@@ -107,6 +104,9 @@ public class ViewMain extends JFrame {
 
 		//Register window to model
 		model.setView(this);
+		
+		//Start with GUI Module choice
+		DiaSelectGUI.showGUISelectionWindow(model);
 
 	}
 	
@@ -154,6 +154,7 @@ public class ViewMain extends JFrame {
 					panelGUIElements.remove(gm.getGUIPanel());
 				}			
 				menuBar.removeGUIModuleMenuBar(gm);
+				panelMeasureInfo.removeGUIModuleInfo(gm);
 			}
 		}
 		
@@ -170,6 +171,7 @@ public class ViewMain extends JFrame {
 					panelGUIElements.add(gm.getGUIPanel());
 				}
 				menuBar.addGUIModuleMenuBar(gm);
+				panelMeasureInfo.addGUIModuleInfo(gm);
 			}
 		}
 		
@@ -180,6 +182,7 @@ public class ViewMain extends JFrame {
 				panelUpper.remove(gm.getGUIPanel());
 				panelGUIElements.remove(gm.getGUIPanel());
 				menuBar.removeGUIModuleMenuBar(gm);
+				panelMeasureInfo.removeGUIModuleInfo(gm);
 			}
 			else if(!gm.getModuleSettings().isWindowed() && (guiSubframes.get(gm) != null)) {
 				guiSubframes.get(gm).dispose();
@@ -191,16 +194,20 @@ public class ViewMain extends JFrame {
 					panelGUIElements.add(gm.getGUIPanel());
 				}
 				menuBar.addGUIModuleMenuBar(gm);
-				
+				panelMeasureInfo.addGUIModuleInfo(gm);
 			}
 		}
 		displayedModules.clear();
 		displayedModules.addAll(model.getDisplayedGUIModules());
 		
-		menuBar.revalidate();
-		menuBar.repaint();
-		panelMain.revalidate();
-		panelMain.repaint();		
+		//Set windowposition to center
+		this.pack();
+		
+		Toolkit tk = java.awt.Toolkit.getDefaultToolkit();
+		this.setLocation((tk.getScreenSize().width / 2 - this.getWidth() / 2),
+				(tk.getScreenSize().height / 2 - this.getHeight() / 2));
+		this.setLocation(((this.getX() < 0) ? 0 : this.getX()), ((this.getY() < 0) ? 0 : this.getY()));
+			
 	}
 	
 	public JFrame getCurrentlyFocusedWindow() {

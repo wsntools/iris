@@ -165,6 +165,7 @@ public class PanelFilter extends JPanel {
 		public void actionPerformed(ActionEvent ae) {
 	
 			if(ae.getSource().equals(butAdd)) {
+				if(comboAttributes.getSelectedIndex() == -1) return;
 				if(FilterTool.isValidFilterTextInput(textFilter.getText())) {
 					IRIS_Attribute attr = model.getMeasureAttribute((String)comboAttributes.getSelectedItem(), true);
 					newMapFilter.put(attr, FilterTool.parseFilterTextInput(textFilter.getText(), newMapFilter.get(attr)));

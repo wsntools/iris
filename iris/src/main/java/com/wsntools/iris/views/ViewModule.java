@@ -8,36 +8,28 @@ import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import com.wsntools.iris.data.Model;
-import com.wsntools.iris.extensions.RMT_MenuBar;
 import com.wsntools.iris.interfaces.IRIS_GUIModule;
+import com.wsntools.iris.interfaces.IRIS_ModuleInfo;
 import com.wsntools.iris.panels.PanelMeasureInfo;
-import com.wsntools.iris.panels.PanelTestBarPacketInsertion;
-import com.wsntools.iris.panels.PanelToolBar;
-import com.wsntools.iris.tools.Tools;
-import com.wsntools.iris.views.ViewMain.ViewWindowListener;
 
 public class ViewModule extends JFrame {
 
 		private static final long serialVersionUID = 1L;
 
 		private Model model;
-		private ViewModule ref = this;
 
-		private IRIS_GUIModule guiModule;		
+		private IRIS_GUIModule guiModule;	
+		
+		private JPanel panelMain = new JPanel(new BorderLayout());
+		private PanelMeasureInfo panelMeasureInfo;
 		
 		//--Windowlistener--
 		private ViewWindowListener listenerWindow = new ViewWindowListener();
@@ -54,6 +46,8 @@ public class ViewModule extends JFrame {
 				JMenu moduleMenu = new JMenu(module.getModuleName());
 				menuBar.add(moduleMenu);
 				
+				this.setJMenuBar(menuBar);						
+				
 				String[] moduleEntries = module.getRelatedMenuBarEntries();
 				JMenuItem[] moduleMenuItems = new JMenuItem[moduleEntries.length];
 				ActionListener moduleListener = module.getMenuBarActionListener();
@@ -63,14 +57,19 @@ public class ViewModule extends JFrame {
 					moduleMenu.add(moduleMenuItems[i]);
 					moduleMenuItems[i].addActionListener(moduleListener);			
 				}
-				
-				this.setJMenuBar(menuBar);
-			}		
+			}
+			panelMain.add(module.getGUIPanel(), BorderLayout.CENTER);
+			
+			if(module.getRelatedModuleInfos() != null) {
+				panelMeasureInfo =  new PanelMeasureInfo(model, true);
+				panelMeasureInfo.addGUIModuleInfo(module);					
+				panelMain.add(panelMeasureInfo, BorderLayout.SOUTH);
+			}	
 			
 			//Windowsettings
 			this.setTitle("IRIS - " + module.getModuleName());
 			//this.setResizable(false);
-			this.setContentPane(module.getGUIPanel());
+			this.setContentPane(panelMain);
 			this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 			this.addWindowListener(listenerWindow);
 			this.pack();
@@ -83,6 +82,14 @@ public class ViewModule extends JFrame {
 			this.setVisible(true);
 		}
 		
+		public void dispose() {
+			//Unregister model observer if available
+			if(panelMeasureInfo != null) model.unregisterObserver(panelMeasureInfo);
+			
+			super.dispose();
+		}
+
+		
 		//Inner class to handle window operations
 		class ViewWindowListener implements WindowListener {
 
@@ -93,6 +100,7 @@ public class ViewModule extends JFrame {
 			}
 
 			public void windowClosing(WindowEvent arg0) {
+				//Deactivate Module in the settings
 				guiModule.getModuleSettings().setActive(false);
 				model.applyGUIModuleSettings();
 			}

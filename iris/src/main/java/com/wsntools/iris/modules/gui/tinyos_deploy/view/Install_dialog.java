@@ -1,7 +1,7 @@
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-package com.wsntools.iris.tools.tinyos_deploy.view;
+package com.wsntools.iris.modules.gui.tinyos_deploy.view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.wsntools.iris.tools.tinyos_deploy.controller.AbstractController;
+import com.wsntools.iris.modules.gui.tinyos_deploy.controller.AbstractController;
 
 
 public class Install_dialog extends JDialog {

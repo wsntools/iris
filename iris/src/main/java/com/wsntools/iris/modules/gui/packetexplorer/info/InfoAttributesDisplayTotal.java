@@ -9,7 +9,7 @@ import com.wsntools.iris.interfaces.IRIS_ModuleInfo;
 public class InfoAttributesDisplayTotal implements IRIS_ModuleInfo {
 
 	@Override
-	public String getMeasureInfoName() {
+	public String getModuleInfoName() {
 		
 		return "Attributes Displayed / Total:";
 	}

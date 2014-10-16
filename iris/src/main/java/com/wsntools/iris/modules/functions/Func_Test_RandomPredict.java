@@ -38,7 +38,7 @@ public class Func_Test_RandomPredict extends FunctionBasic implements IRIS_Funct
 	}
 
 	@Override
-	public boolean isOneValueResult() {
+	public boolean isScalarValueResult() {
 
 		return false;
 	}

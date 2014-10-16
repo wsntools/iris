@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
 
@@ -19,6 +20,9 @@ import com.wsntools.iris.packageDecode.parser.PackageDecoder;
 import com.wsntools.iris.tools.DataCollector;
 import com.wsntools.iris.tools.EventLogger;
 import com.wsntools.iris.tools.ModuleLoader;
+import com.wsntools.iris.tools.datacollector.receiving.MetaDataCollector;
+import com.wsntools.iris.tools.datacollector.sending.SendingConfiguration;
+import com.wsntools.iris.tools.datacollector.sending.SendingManager;
 import com.wsntools.iris.views.ViewMain;
 
 /**
@@ -38,13 +42,17 @@ public class Model {
 	private int measure_created_next = 0;
 
 	//Reference to the data collector
-	private DataCollector dataCollector;
+	private DataCollector dataCollectorOld;
+	
+	//Network communication and logging
+	private MetaDataCollector dataCollector;
+	private SendingManager sendingMananger;
+	private List<SendingConfiguration> lastConfigurations;
+	private EventLogger eventLogger;
 	
 	//Information about recording buffer
 	private int buffersize = -1;
 
-	//List of hardcoded attributes
-	private IRIS_Attribute[] attributes;
 	//List of user-created attributes	
 	private ArrayList<AliasAttribute> listOfAliases;
 
@@ -53,8 +61,6 @@ public class Model {
 
 	//List of hardcoded displayed measure information
 	private IRIS_ModuleInfo[] measureInfos;
-	//List of module
-	private ArrayList<IRIS_ModuleInfo> moduleInfos;
 	
 	//List of available GUI Modules
 	private IRIS_GUIModule[] guiModules;	
@@ -64,10 +70,6 @@ public class Model {
 	private ArrayList<IRIS_Observer> observer = new ArrayList<IRIS_Observer>();
 	private ViewMain view;
 	
-	
-	//Event logging
-	private EventLogger eventLogger;
-
 	public final static Logger logger = Logger.getLogger("RMTLogger");
 
 	//Constructor
@@ -75,13 +77,15 @@ public class Model {
 		//Get all module classes for attributes, functions and infos
 		this.startInListenMode = startInListenMode;
 		this.startInDDSMode = startInDDSMode;
-		attributes = ModuleLoader.getAttributeList();
+		lastConfigurations = new ArrayList<SendingConfiguration>();
+		//Init Aliaslist and add all defined starting attributes
 		listOfAliases = new ArrayList<AliasAttribute>();
+		for(String alias: Constants.getAttrFixedAliases()) listOfAliases.add(new AliasAttribute(this, alias, AliasAttribute.ALIAS_FIXED, ""));
 		functions = ModuleLoader.getFunctionList();
 		measureInfos = ModuleLoader.getMeasureInfoList();		
 		guiModules = ModuleLoader.getGUIModuleList(this);
 		
-		addNewMeasurement(new Measurement(0, "New Measurement", attributes));
+		addNewMeasurement(new Measurement(0, "New Measurement"));
 		applyGUIModuleSettings();
 		
 		eventLogger = new EventLogger(this);
@@ -100,7 +104,7 @@ public class Model {
 
 		if (!checkMeasureName(name)) {
 			//Add measurement
-			measurements.add(new Measurement(measure_created_next++, name, attributes));
+			measurements.add(new Measurement(measure_created_next++, name));
 			measure_index = measurements.size() - 1;
 
 			//Update panels
@@ -189,7 +193,7 @@ public class Model {
 
 		String[] res = new String[measureInfos.length];
 		for (int i = 0; i < measureInfos.length; i++) {
-			res[i] = measureInfos[i].getMeasureInfoName();
+			res[i] = measureInfos[i].getModuleInfoName();
 		}
 		return res;
 	}
@@ -226,6 +230,7 @@ public class Model {
 				registerObserver(guiModules[i].getModuleObserver());
 			}
 			
+			//Include Attributes in the list
 			if(guiModules[i].getRequiredAliasAttributes() != null) {
 				//TODO Mehrfache abhaengigkeiten oder Kuerzel fuer Module
 				if(setting.isActive()) {
@@ -278,7 +283,7 @@ public class Model {
 		measure_index = measurements.size() - 1;
 		if (measurements.size() == 0) {
 			measure_created_next = 1;
-			addNewMeasurement(new Measurement(0, "New Measurement", attributes));
+			addNewMeasurement(new Measurement(0, "New Measurement"));
 		}
 		updateObserver(IRIS_Observer.EVENT_MEASURE);
 	}
@@ -296,7 +301,6 @@ public class Model {
 
 		for (IRIS_FunctionModule func : functions) {
 			if (func.getFunctionName().equals(name)) {
-
 				try {
 					return func.getClass().newInstance();
 				} catch (Exception e) {
@@ -333,32 +337,46 @@ public class Model {
 		measurements.get(measure_index).addAttribute(attr);
 		updateObserver(IRIS_Observer.EVENT_ATTRIBUTE);
 	}
-
-	//Attributes loaded at the beginning
-	public IRIS_Attribute[] getFixedAttributes() {
-
-		return attributes;
-	}
-
-	public IRIS_Attribute getFixedAttribute(String name) {
-
-		for (int i = 0; i < attributes.length; i++) {
-			if (attributes[i].getAttributeName().equals(name)) {
-				return attributes[i];
+	
+	
+	public List<IRIS_Attribute> getMeasureAttributesBySpecification(boolean aliasUser, boolean aliasGUI, boolean aliasFixed, boolean measNormal, boolean measFuncNonScalar, boolean measFuncScalar) {
+		ArrayList<IRIS_Attribute> attrList = new ArrayList<IRIS_Attribute>();
+		if(aliasUser && aliasGUI && aliasFixed)
+			attrList.addAll(listOfAliases);
+		else {
+			if(aliasUser) attrList.addAll(getAliasAttributesByType(AliasAttribute.ALIAS_USER));
+			if(aliasGUI) attrList.addAll(getAliasAttributesByType(AliasAttribute.ALIAS_GUI));
+			if(aliasFixed) attrList.addAll(getAliasAttributesByType(AliasAttribute.ALIAS_FIXED));
+		}
+		if(measNormal && measFuncNonScalar && measFuncScalar)
+			attrList.addAll(measurements.get(measure_index).getAttributes());
+		else {
+			if(measNormal) {
+				for(IRIS_Attribute attr: measurements.get(measure_index).getNormalAttributes())
+					attrList.add(attr);
+			}
+			if(measFuncNonScalar && measFuncScalar) {
+				for(IRIS_Attribute attr: measurements.get(measure_index).getFunctionAttributes(true, true))
+					attrList.add(attr);
+			}
+			else {
+				if(measFuncNonScalar) {
+					for(IRIS_Attribute attr: measurements.get(measure_index).getFunctionAttributes(true, false))
+						attrList.add(attr);
+				}
+				if(measFuncScalar) {
+					for(IRIS_Attribute attr: measurements.get(measure_index).getFunctionAttributes(false, true))
+						attrList.add(attr);
+				}
 			}
 		}
-		return null;
-	}
-
-	public int getFixedAttributeCount() {
-
-		return attributes.length;
+		return attrList;
 	}
 
 	//Returns all attributes using functions
 	public IRIS_Attribute[] getFunctionAttributesInMeasurement() {
 
-		return measurements.get(measure_index).getFunctionAttributes();
+		return measurements.get(measure_index).getFunctionAttributes(true, true);
 	}
 	
 	public List<IRIS_Attribute> getMeasureAttributes(boolean includeGlobalAttributes) {
@@ -499,6 +517,11 @@ public class Model {
 		
 		return listOfAliases;
 	}
+	public List<AliasAttribute> getAliasAttributesByType(int type) {
+		ArrayList<AliasAttribute> attrList = new ArrayList<AliasAttribute>();
+		for(AliasAttribute alias: listOfAliases) if(alias.getAliasType()==type) attrList.add(alias);
+		return attrList;
+	}
 	public boolean addAliasAttribute(AliasAttribute attr) {
 		String attrName = attr.getAttributeName();
 		//Check for already existing names
@@ -517,9 +540,29 @@ public class Model {
 		return false;
 	}
 	public void removeAliasAttribute(AliasAttribute attr) {
-		if(listOfAliases.contains(attr)) {
+		if(!listOfAliases.contains(attr)) return;
+		//Check for depencies in all measurements
+		boolean hasDependency = false;
+		String dependencies = "";
+		for(Measurement me: measurements) {
+			IRIS_Attribute[] funcs = me.getFunctionAttributes(true, true);
+			for(IRIS_Attribute func: funcs) {
+				IRIS_Attribute[] params = ((FunctionAttribute)func).getAllParameter();
+				for(IRIS_Attribute param: params) {
+					if(param.equals(attr)) {
+						hasDependency = true;
+						dependencies += "\nMeasurement: '" + me.getMeasureName() + "', Function: '" + func.getAttributeName() + "'";
+					}
+				}
+			}
+		}
+		if(!hasDependency) {
 			listOfAliases.remove(attr);
 			updateObserver(IRIS_Observer.EVENT_ATTRIBUTE);
+		}
+		else {
+			JOptionPane.showMessageDialog(getCurrentlyFocusedWindow(),
+					"Cannot remove alias attribute because of the following parameter dependencies:" + dependencies, "IRIS", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -575,7 +618,11 @@ public class Model {
 		buffersize = val;
 	}
 	
-	public DataCollector getDataCollector() {
+	/*
+	 * Network input
+	 */
+	public MetaDataCollector getDataCollector() {
+		if(dataCollector == null) dataCollector = new MetaDataCollector(this);
 		return dataCollector;
 	}
 	
@@ -583,13 +630,9 @@ public class Model {
 		return (dataCollector != null && dataCollector.isActive()); 
 	}
 	
-	public void setNewDataCollector() {
-		dataCollector = new DataCollector(this);
-	}
-	
 	public void startRecording() {
 		if (dataCollector == null) {
-			dataCollector = new DataCollector(this);
+			dataCollector = new MetaDataCollector(this);
 		}
 		if(!dataCollector.isActive()) {
 			dataCollector.setActivation(true);
@@ -603,7 +646,78 @@ public class Model {
 		if (eventLogger.isLoggingEnabled()) {
 			eventLogger.setLoggingEnabled(false);
 		}
+	}	
+	
+	/*
+	 * Network output
+	 */
+	
+	private SendingManager getSendingManager() {
+		if(sendingMananger == null) sendingMananger = new SendingManager();
+		return sendingMananger;
 	}
+	
+	public SendingConfiguration[] getSendingConfigurations() {
+		SendingConfiguration[] configs = new SendingConfiguration[lastConfigurations.size()];
+		return lastConfigurations.toArray(configs);
+	}
+	
+	public boolean setupSendingManager() {		
+		SendingConfiguration config = getSendingManager().buildSendingSetup();
+		if(config != null) {
+			lastConfigurations.add(0, config);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean sendConfiguration(SendingConfiguration conf) {		
+		if(lastConfigurations != null) {
+			getSendingManager().send(conf);			
+			//Put it into the list of recently sent messages
+			if(lastConfigurations.contains(conf)) {
+				lastConfigurations.remove(conf);				
+			}
+			lastConfigurations.add(0, conf);
+				
+			return true;
+		}
+		return false;
+	}
+	
+	/*
+	public DataCollector getDataCollector() {
+		return dataCollectorOld;
+	}
+	
+	public boolean isDataCollectorActive() {
+		return (dataCollectorOld != null && dataCollectorOld.isActive()); 
+	}
+	
+	public void setNewDataCollector() {
+		dataCollectorOld = new DataCollector(this);
+	}
+	
+	public void startRecording() {
+		if (dataCollectorOld == null) {
+			dataCollectorOld = new DataCollector(this);
+		}
+		if(!dataCollectorOld.isActive()) {
+			dataCollectorOld.setActivation(true);
+		}
+	}
+		
+	public void stopRecording() {
+		if (isDataCollectorActive()) {
+			dataCollectorOld.setActivation(false);
+		}
+		if (eventLogger.isLoggingEnabled()) {
+			eventLogger.setLoggingEnabled(false);
+		}
+	}
+	*/
 	
 	
 	public EventLogger getEventLogger() {
@@ -644,7 +758,7 @@ public class Model {
 		observer.remove(obs);
 	}
 
-	private void updateObserver(int event) {
+	public void updateObserver(int event) {
 
 		for (int i = 0; i < observer.size(); i++) {
 			switch (event) {

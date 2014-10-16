@@ -57,7 +57,7 @@ public class Func_Basic_Divide extends FunctionBasic implements IRIS_FunctionMod
 	}
 
 	@Override
-	public boolean isOneValueResult() {
+	public boolean isScalarValueResult() {
 		
 		return false;
 	}
