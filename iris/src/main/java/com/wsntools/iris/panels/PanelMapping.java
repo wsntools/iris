@@ -4,6 +4,7 @@
 package com.wsntools.iris.panels;
 
 import java.awt.FlowLayout;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -37,9 +38,9 @@ public class PanelMapping extends JPanel {
 		measure = meas;
 		
 		labelAttName.setText(toMap.getAttributeName());
-		IRIS_Attribute[] normatt = m.getMeasureNormalAttributes();
-		for(int i=0; i<normatt.length; i++) {
-			comboMapTo.addItem(normatt[i].getAttributeName());
+		List<IRIS_Attribute> normatt = m.getMeasureAttributesBySpecification(false, false, false, true, false, false);
+		for(int i=0; i<normatt.size(); i++) {
+			comboMapTo.addItem(normatt.get(i).getAttributeName());
 		}
 		
 		//Get current mapping index
@@ -62,9 +63,9 @@ public class PanelMapping extends JPanel {
 		measure = meas;		
 		
 		labelAttName.setText("<Name of the Alias>");
-		IRIS_Attribute[] normatt = meas.getNormalAttributes();
-		for(int i=0; i<normatt.length; i++) {
-			comboMapTo.addItem(normatt[i].getAttributeName());
+		List<IRIS_Attribute> normatt = m.getMeasureAttributesBySpecification(false, false, false, true, false, false);
+		for(int i=0; i<normatt.size(); i++) {
+			comboMapTo.addItem(normatt.get(i).getAttributeName());
 		}
 		
 		//Get current mapping index

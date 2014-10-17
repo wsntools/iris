@@ -64,7 +64,7 @@ public class DiaSelectGUI extends JDialog {
 		IRIS_GUIModule[] modules = model.getGUIModules();
 		arrGUISelectionTiles = new GUISelectionTile[modules.length];
 		for(int i=0; i<modules.length; i++) {
-			arrGUISelectionTiles[i] = new GUISelectionTile(modules[i].getModuleSettings());
+			arrGUISelectionTiles[i] = new GUISelectionTile(modules[i]);
 			panelGUIModules.add(arrGUISelectionTiles[i]);
 		}
 		scrollGUIModules = new JScrollPane(panelGUIModules);
@@ -110,20 +110,24 @@ public class DiaSelectGUI extends JDialog {
 		private JCheckBox checkGUIModuleSelected;
 		
 		private JPanel panelCheck;
-		private JCheckBox checkRegisterObserver;
 		private JCheckBox checkWindowed;
+		private JCheckBox checkRegisterObserver;
+		private JCheckBox checkDisplayModuleInfo;
 		
-		public GUISelectionTile(GUIModuleSettings settings) {
+		
+		public GUISelectionTile(IRIS_GUIModule module) {
 			
-			guiModule = settings.getGUIModule();			
+			guiModule = module;
+			GUIModuleSettings settings = module.getModuleSettings();
 			JTextArea textGUIModuleDesc = new JTextArea(guiModule.getModuleDescription());
 			textGUIModuleDesc.setWrapStyleWord(true);
 			textGUIModuleDesc.setLineWrap(true);
 			textGUIModuleDesc.setEditable(false);
 			
 			checkGUIModuleSelected = new JCheckBox(guiModule.getModuleName(), settings.isActive());
-			checkRegisterObserver = new JCheckBox("Auto-Update", settings.isRegisteredAsObserver());
 			checkWindowed = new JCheckBox("Separate Window", settings.isWindowed());
+			checkRegisterObserver = new JCheckBox("Auto-Update", settings.isRegisteredAsObserver());
+			checkDisplayModuleInfo = new JCheckBox("Show Module Info", settings.isDisplayingInformation());
 			
 			checkGUIModuleSelected.addActionListener(new ActionListener() {				
 				@Override
@@ -136,26 +140,29 @@ public class DiaSelectGUI extends JDialog {
 			this.add(checkGUIModuleSelected, BorderLayout.NORTH);
 			this.add(textGUIModuleDesc, BorderLayout.CENTER);
 			
-			panelCheck = new JPanel(new java.awt.GridLayout(2 - ((guiModule.getModuleObserver() == null) ? 1 : 0),1));
-			if(guiModule.getModuleObserver() != null) {
-				
-				checkRegisterObserver.setHorizontalTextPosition(SwingConstants.LEFT);
-				checkRegisterObserver.setHorizontalAlignment(SwingConstants.RIGHT);
-				panelCheck.add(checkRegisterObserver);				
-				
-			}
+			int checkboxCnt = 3 - ((guiModule.getModuleObserver() == null) ? 1 : 0) - ((guiModule.getRelatedModuleInfos() == null) ? 1 : 0);
+			panelCheck = new JPanel(new java.awt.GridLayout(checkboxCnt,1));
 			checkWindowed.setHorizontalTextPosition(SwingConstants.LEFT);
 			checkWindowed.setHorizontalAlignment(SwingConstants.RIGHT);
 			panelCheck.add(checkWindowed);
 			panelCheck.setVisible(checkGUIModuleSelected.isSelected());
 			
+			if(guiModule.getModuleObserver() != null) {
+				
+				checkRegisterObserver.setHorizontalTextPosition(SwingConstants.LEFT);
+				checkRegisterObserver.setHorizontalAlignment(SwingConstants.RIGHT);
+				panelCheck.add(checkRegisterObserver);				
+			}
+			if(guiModule.getRelatedModuleInfos() != null) {
+				
+				checkDisplayModuleInfo.setHorizontalTextPosition(SwingConstants.LEFT);
+				checkDisplayModuleInfo.setHorizontalAlignment(SwingConstants.RIGHT);
+				panelCheck.add(checkDisplayModuleInfo);				
+			}
+			
 			this.add(panelCheck, BorderLayout.SOUTH);
 			
 			this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		}
-		
-		public IRIS_GUIModule getGUIModule() {
-			return guiModule;
 		}
 		
 		public boolean isModuleSelected() {
@@ -169,6 +176,10 @@ public class DiaSelectGUI extends JDialog {
 		public boolean isWindowed() {
 			return checkWindowed.isSelected();
 		}
+		
+		public boolean isDisplayingModuleInfo() {
+			return checkDisplayModuleInfo.isSelected();
+		}
 	}
 	
 	private class ButtonListener implements ActionListener {
@@ -180,8 +191,9 @@ public class DiaSelectGUI extends JDialog {
 				for(GUISelectionTile gst: arrGUISelectionTiles) {
 					GUIModuleSettings settings = gst.guiModule.getModuleSettings();
 					settings.setActive(gst.isModuleSelected());
-					settings.setRegisteredAsObserver(gst.isModuleRegisteredAsObserver());
 					settings.setWindowed(gst.isWindowed());
+					settings.setRegisteredAsObserver(gst.isModuleRegisteredAsObserver());
+					settings.setDisplayingInformation(gst.isDisplayingModuleInfo());
 				}
 				model.applyGUIModuleSettings();
 				ref.dispose();

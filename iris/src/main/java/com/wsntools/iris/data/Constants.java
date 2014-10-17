@@ -44,10 +44,10 @@ public class Constants {
 	private static final String LOGGING_VALUE_SEPARATOR = ";";
 
 	//Packages
-	private static final String NET_SENDING_SENDER_PACKAGE = "com.wsntools.iris.tools.datacollector.sending.sender";
-	private static final String NET_SENDING_ENCODER_PACKAGE = "com.wsntools.iris.tools.datacollector.sending.encoder";
-	private static final String NET_RECEIVING_COLLECTOR_PACKAGE = "com.wsntools.iris.tools.datacollector.receiving.collector";
-	private static final String NET_RECEIVING_DECODER_PACKAGE = "com.wsntools.iris.tools.datacollector.receiving.decoder";
+	private static final String NET_SENDING_SENDER_PACKAGE = "com.wsntools.iris.modules.comm.sender";
+	private static final String NET_SENDING_ENCODER_PACKAGE = "com.wsntools.iris.modules.comm.encoder";
+	private static final String NET_RECEIVING_COLLECTOR_PACKAGE = "com.wsntools.iris.modules.comm.collector";
+	private static final String NET_RECEIVING_DECODER_PACKAGE = "com.wsntools.iris.modules.comm.decoder";
 	
 	private static final String IF_ATTR_PACKAGE = "com.wsntools.iris.interfaces.IRIS_Attribute";
 	private static final String IF_FUNC_PACKAGE = "com.wsntools.iris.interfaces.IRIS_FunctionModule";
@@ -66,6 +66,7 @@ public class Constants {
 	private static final String PATH_PICS_BUTTONS = "pictures" + getJarSep() + "btn" + getJarSep();
 	private static final String PATH_PICS_MISC = "pictures" + getJarSep() + "misc" + getJarSep();
 	
+	private static final String PATH_SAVES_EXPERIMENTS = "saves" + getSep() + "experiments" + getSep();
 	private static final String PATH_SAVES_FUNCTIONS = "saves" + getSep() + "functions" + getSep();
 	private static final String PATH_SAVES_MEASURE = "saves" + getSep() + "measurements" + getSep();
 	private static final String PATH_SAVES_TRACES = "saves" + getSep() + "traces" + getSep();
@@ -255,6 +256,14 @@ public class Constants {
 
 	public static String getPathPicsMisc() {
 		return mkdirs(PATH_PICS_MISC);
+	}
+	
+	public static String getPathSavesExperiments() {
+		if (ModuleLoader.insideJar()){
+		return mkdirs(PATH_SAVES_EXPERIMENTS);
+		} else {
+			return CUR_DIR + getSep() +PATH_SAVES_EXPERIMENTS;
+		}
 	}
 
 	public static String getPathSavesFunctions() {

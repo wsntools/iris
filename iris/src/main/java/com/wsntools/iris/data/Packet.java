@@ -3,6 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 package com.wsntools.iris.data;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +12,7 @@ import com.wsntools.iris.interfaces.IRIS_Attribute;
 /**
  * @author Sascha Jungen
  */
-public class Packet {
+public class Packet implements Serializable {
 
 	private Map<String, Float> informationmap = new HashMap<String, Float>();
 

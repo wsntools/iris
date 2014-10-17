@@ -1,13 +1,13 @@
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-package com.wsntools.iris.tools.datacollector.sending.sender;
+package com.wsntools.iris.modules.comm.sender;
 
 import java.io.IOException;
 
+import com.wsntools.iris.modules.comm.encoder.TinyOSEncoder;
 import com.wsntools.iris.tools.datacollector.sending.AbstractEncoder;
 import com.wsntools.iris.tools.datacollector.sending.ISender;
-import com.wsntools.iris.tools.datacollector.sending.encoder.TinyOSEncoder;
 
 import net.tinyos.message.Message;
 import net.tinyos.message.MoteIF;

@@ -88,9 +88,9 @@ public class PanelFilter extends JPanel {
 		
 		butHelp.setPreferredSize(new Dimension(28, 28));
 		comboAttributes.setPreferredSize(new Dimension(200, 28));
-		IRIS_Attribute[] nonFuncAttr = model.getMeasureNonFunctionalAttributes();
-		for (int i = 0; i < nonFuncAttr.length; i++) {
-			comboAttributes.addItem(nonFuncAttr[i].getAttributeName());
+		List<IRIS_Attribute> nonFuncAttr = model.getMeasureAttributesBySpecification(false, false, false, true, false, false);
+		for (int i = 0; i < nonFuncAttr.size(); i++) {
+			comboAttributes.addItem(nonFuncAttr.get(i).getAttributeName());
 		}
 		butAdd.setPreferredSize(new Dimension(18, 18));
 		

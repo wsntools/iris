@@ -40,9 +40,6 @@ public class Model {
 
 	//Info about created measurements
 	private int measure_created_next = 0;
-
-	//Reference to the data collector
-	private DataCollector dataCollectorOld;
 	
 	//Network communication and logging
 	private MetaDataCollector dataCollector;
@@ -84,7 +81,6 @@ public class Model {
 		functions = ModuleLoader.getFunctionList();
 		measureInfos = ModuleLoader.getMeasureInfoList();		
 		guiModules = ModuleLoader.getGUIModuleList(this);
-		
 		addNewMeasurement(new Measurement(0, "New Measurement"));
 		applyGUIModuleSettings();
 		
@@ -93,6 +89,66 @@ public class Model {
 		if (startInListenMode) {
 			startRecording();
 		}
+	}
+	
+	/*
+	 * Im/Export functions
+	 */
+	
+	public List<Object> getExperimentData() {
+		
+		List<Object> toSave = new ArrayList<Object>();
+		
+		//Measurements (incl. function attributes)
+		toSave.add(measurements);
+		
+		//TODO Messages/Configurations from Sender/Collector
+		toSave.add(buffersize);
+		
+		//Save only user created aliases
+		List<AliasAttribute> userAliases = new ArrayList<AliasAttribute>();
+		for(AliasAttribute aa: listOfAliases) if(aa.isUserAlias()) userAliases.add(aa);
+		toSave.add(userAliases);
+		
+		//GUI Configurations
+		List<GUIModuleSettings> guiSettings = new ArrayList<GUIModuleSettings>();
+		for(IRIS_GUIModule gm: guiModules) guiSettings.add(gm.getModuleSettings());
+		toSave.add(guiSettings);
+		
+		return toSave;
+	}
+	
+	public void setExperimentData(List<Object> params) {		
+		
+		int index = 0;
+		//TODO Check for existence of function attributes
+		measurements = (ArrayList<Measurement>) params.get(index++);
+		for(Measurement meas: measurements) measure_created_next = Math.max(measure_created_next, meas.getMeasureNumber()+1);
+		
+		//TODO Messages/Configurations from Sender/Collector
+		
+		buffersize = (int)params.get(index++);
+		
+		//Clear previous user aliases data list
+		for(int i=0; i<listOfAliases.size(); i++) if(listOfAliases.get(i).isUserAlias()) listOfAliases.remove(i);
+		List<AliasAttribute> userAliases = (List<AliasAttribute>) params.get(index++);
+		for(AliasAttribute aa: userAliases) listOfAliases.add(new AliasAttribute(this, aa));
+		
+		//Match settings to correspondent GUI Modules (if available)
+		List<GUIModuleSettings> guiSettings = (List<GUIModuleSettings>) params.get(index++);
+		for(GUIModuleSettings setting: guiSettings) {
+			for(IRIS_GUIModule gm: guiModules) {
+				if(setting.getGUIModuleClass().equals(gm.getClass())) gm.setModuleSettings(setting);
+			}
+		}
+		
+		//Set measure index
+		measure_index = (measurements.size()-1);
+		//Configure GUI conform to saved experiment
+		applyGUIModuleSettings();
+		
+		//Inform all modules about the changes
+		updateObserver(IRIS_Observer.EVENT_MEASURE);
 	}
 
 	/*
@@ -390,11 +446,6 @@ public class Model {
 		return measurements.get(measure_index).getAttributes();
 	}
 
-	public IRIS_Attribute getMeasureAttribute(int num) {
-
-		return measurements.get(measure_index).getAttribute(num);
-	}
-
 	public IRIS_Attribute getMeasureAttribute(String atname, boolean includeGlobalAttributes) {
 
 		if(includeGlobalAttributes) {
@@ -403,12 +454,9 @@ public class Model {
 				if(alias.getAttributeName().equals(atname)) {
 					return alias;
 				}
-			}
-			return measurements.get(measure_index).getAttribute(atname);
+			}			
 		}
-		else {
-			return measurements.get(measure_index).getAttribute(atname);
-		}
+		return measurements.get(measure_index).getAttribute(atname);
 	}
 
 	public int getMeasureAttributeCount(boolean includeGlobalAttributes) {
@@ -467,17 +515,6 @@ public class Model {
 		else {
 			return measurements.get(measure_index).getAttributeValueStringsByNameNoDuplicates(atname);
 		}
-	}
-
-	public IRIS_Attribute[] getMeasureNonFunctionalAttributes() {
-
-		return measurements.get(measure_index).getNonFunctionalAttributes();
-	}
-
-	//Attributes located in the measurements
-	public IRIS_Attribute[] getMeasureNormalAttributes() {
-
-		return measurements.get(measure_index).getNormalAttributes();
 	}
 
 	//If function has been deleted, inform observer
@@ -604,7 +641,7 @@ public class Model {
 		}
 		return false;
 	}
-
+	
 	/*
 	 * Recording methods
 	 */
@@ -686,40 +723,7 @@ public class Model {
 		}
 		return false;
 	}
-	
-	/*
-	public DataCollector getDataCollector() {
-		return dataCollectorOld;
-	}
-	
-	public boolean isDataCollectorActive() {
-		return (dataCollectorOld != null && dataCollectorOld.isActive()); 
-	}
-	
-	public void setNewDataCollector() {
-		dataCollectorOld = new DataCollector(this);
-	}
-	
-	public void startRecording() {
-		if (dataCollectorOld == null) {
-			dataCollectorOld = new DataCollector(this);
-		}
-		if(!dataCollectorOld.isActive()) {
-			dataCollectorOld.setActivation(true);
-		}
-	}
 		
-	public void stopRecording() {
-		if (isDataCollectorActive()) {
-			dataCollectorOld.setActivation(false);
-		}
-		if (eventLogger.isLoggingEnabled()) {
-			eventLogger.setLoggingEnabled(false);
-		}
-	}
-	*/
-	
-	
 	public EventLogger getEventLogger() {
 		return eventLogger;
 	}

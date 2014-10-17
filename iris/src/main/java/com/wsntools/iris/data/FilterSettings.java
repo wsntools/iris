@@ -3,6 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 package com.wsntools.iris.data;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,7 @@ import com.wsntools.iris.interfaces.IRIS_Attribute;
  * @author Sascha Jungen
  *
  */
-public class FilterSettings {
+public class FilterSettings implements Serializable {
 
 	private final String filterName;
 	private final Map<IRIS_Attribute, List<float[]>> filterMap;

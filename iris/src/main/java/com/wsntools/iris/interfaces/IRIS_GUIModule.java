@@ -24,8 +24,8 @@ public abstract class IRIS_GUIModule {
 	public GUIModuleSettings getModuleSettings() {
 		return settings;
 	}
-	public void setModuleSettings(GUIModuleSettings set) {
-		settings = set;
+	public void setModuleSettings(GUIModuleSettings newSets) {
+		settings.adaptModuleSettings(newSets);
 	}
 	
 	//--Abstract methods--

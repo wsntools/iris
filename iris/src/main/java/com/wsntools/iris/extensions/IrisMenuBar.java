@@ -28,19 +28,19 @@ import com.wsntools.iris.tools.DataCollector;
 import com.wsntools.iris.tools.SaveAndLoad;
 
 /**
- * @author Sascha Jungen M#2242754
+ * @author Sascha Jungen
  * 
  *         Contains all objects of the menubar including an inner actionlistener
  *         class
  */
-public class RMT_MenuBar extends JMenuBar {
+public class IrisMenuBar extends JMenuBar {
 
 	private static final long serialVersionUID = 1L;
 
 	private Model model;
 
 	private JMenu fileMenu, importMenu, exportMenu, settingMenu;
-	private JMenuItem fileNew, fileOpen, fileSave, fileQuit, writeScript,
+	private JMenuItem fileNew, fileOpen, fileSave, fileQuit,
 			importFromWise, importFromTrace,
 			exportToWise, exportToTrace, // exportToModel;
 			settingGUI, settingBuffer;
@@ -53,7 +53,7 @@ public class RMT_MenuBar extends JMenuBar {
 
 	public DataCollector collector;
 
-	public RMT_MenuBar(Model m) {
+	public IrisMenuBar(Model m) {
 		model = m;
 		
 		mapModuleToMenu = new HashMap<IRIS_GUIModule, JMenu>();
@@ -77,14 +77,11 @@ public class RMT_MenuBar extends JMenuBar {
 		fileQuit = new JMenuItem("Quit");
 		fileQuit.setAccelerator(KeyStroke.getKeyStroke('Q',
 				InputEvent.CTRL_MASK));
-		writeScript = new JMenuItem("Script");
-		writeScript.setAccelerator(KeyStroke.getKeyStroke('S',
-				InputEvent.CTRL_MASK));
 
 		fileMenu.add(fileNew);
-		fileMenu.add(writeScript);
-		// fileMenu.add(fileSave);
-		// fileMenu.addSeparator();
+		fileMenu.add(fileOpen);
+		fileMenu.add(fileSave);
+		fileMenu.addSeparator();
 		fileMenu.add(fileQuit);
 
 		// --Import--
@@ -93,8 +90,8 @@ public class RMT_MenuBar extends JMenuBar {
 		importMenu.setMnemonic(KeyEvent.VK_I);
 		this.add(importMenu);
 
-		importFromWise = new JMenuItem("Measure from WISEML");
-		importFromTrace = new JMenuItem("Measure from Trace");
+		importFromWise = new JMenuItem("Measurement from WISEML");
+		importFromTrace = new JMenuItem("Measurement from Trace");
 
 		importMenu.add(importFromWise);
 		importMenu.add(importFromTrace);
@@ -105,8 +102,8 @@ public class RMT_MenuBar extends JMenuBar {
 		exportMenu.setMnemonic(KeyEvent.VK_E);
 		this.add(exportMenu);
 
-		exportToWise = new JMenuItem("Measure to WISEML");
-		exportToTrace = new JMenuItem("Measure to Trace");
+		exportToWise = new JMenuItem("Measurement to WISEML");
+		exportToTrace = new JMenuItem("Measurement to Trace");
 
 		exportMenu.add(exportToWise);
 		exportMenu.add(exportToTrace);
@@ -132,7 +129,6 @@ public class RMT_MenuBar extends JMenuBar {
 		fileOpen.addActionListener(listenerMenu);
 		fileSave.addActionListener(listenerMenu);
 		fileQuit.addActionListener(listenerMenu);
-		writeScript.addActionListener(listenerMenu);
 		importFromWise.addActionListener(listenerMenu);
 		importFromTrace.addActionListener(listenerMenu);
 		exportToWise.addActionListener(listenerMenu);
@@ -201,12 +197,17 @@ public class RMT_MenuBar extends JMenuBar {
 					}
 				}			
 			}
+			
+			else if (ae.getSource().equals(fileOpen)) {
+				SaveAndLoad.loadExperiment(model);
+			}
+			
+			else if (ae.getSource().equals(fileSave)) {
+				SaveAndLoad.saveExperiment(model);
+			}
+			
 			else if (ae.getSource().equals(fileQuit)) {
 				model.getView().SafeCloseOperation();
-			}
-
-			else if (ae.getSource().equals(writeScript)) {
-				SimpleScriptExecuter.openGUI(model.getCurrentMeasurement());
 			}
 
 			// --Import--

@@ -3,15 +3,18 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 package com.wsntools.iris.data;
 
+import java.io.Serializable;
+import java.util.Arrays;
+
 import com.wsntools.iris.interfaces.IRIS_GUIModule;
 
 /**
  * Contains information about the handling of a GUI Module, specified by the user 
  *
  */
-public class GUIModuleSettings {
+public class GUIModuleSettings implements Serializable {
 
-	private IRIS_GUIModule guiModule;
+	private Class<IRIS_GUIModule> guiModule;
 	
 	//This flag indicates whether a module is used within the program
 	private boolean isActive;
@@ -21,22 +24,37 @@ public class GUIModuleSettings {
 	
 	//This flag is used to indicate if the panel shall be placed within the ViewMain or a separate window
 	private boolean isWindowed;
-
+	
+	//This flag indicates whether available module information are shown within the infopanel
+	private boolean isDisplayingInformation;
+	//Array for single toggling of module information
+	private boolean[] arrDisplaySingleInformation;
+	
+	
 	
 	public GUIModuleSettings(IRIS_GUIModule module) {
 		
-		guiModule = module;
+		guiModule = (Class<IRIS_GUIModule>) module.getClass();
 		isActive = false;
 		isRegisteredAsObserver = true;
 		isWindowed = false;
-		
+		isDisplayingInformation = true;
+		arrDisplaySingleInformation = new boolean[module.getRelatedModuleInfos() != null ? module.getRelatedModuleInfos().length : 0];
+		Arrays.fill(arrDisplaySingleInformation, true);
 	}
 	
 	
-	
-	
 	//Getter && Setter
-	public IRIS_GUIModule getGUIModule() {
+	public void adaptModuleSettings(GUIModuleSettings settings) {
+		this.isActive = settings.isActive;
+		this.isRegisteredAsObserver = settings.isRegisteredAsObserver;
+		this.isWindowed = settings.isWindowed;
+		this.isDisplayingInformation = settings.isDisplayingInformation;
+		if(this.arrDisplaySingleInformation.length == settings.arrDisplaySingleInformation.length)
+			this.arrDisplaySingleInformation = settings.arrDisplaySingleInformation;
+	}
+	
+	public Class<IRIS_GUIModule> getGUIModuleClass() {
 		return guiModule;
 	}
 	
@@ -60,5 +78,20 @@ public class GUIModuleSettings {
 	}
 	public void setWindowed(boolean val) {
 		isWindowed = val;
+	}
+	
+	public boolean isDisplayingInformation() {
+		return isDisplayingInformation;
+	}
+	public void setDisplayingInformation(boolean val) {
+		isDisplayingInformation = val;
+	}
+	
+	public boolean[] getDisplaySingleInformationArray() {
+		return arrDisplaySingleInformation;
+	}
+	public void setDisplaySingleInformationArray(boolean[] newArr) {
+		if(arrDisplaySingleInformation.length == newArr.length)
+			arrDisplaySingleInformation = newArr;
 	}
 }

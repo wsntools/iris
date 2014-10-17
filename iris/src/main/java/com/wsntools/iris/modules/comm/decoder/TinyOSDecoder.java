@@ -1,15 +1,15 @@
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-package com.wsntools.iris.tools.datacollector.receiving.decoder;
+package com.wsntools.iris.modules.comm.decoder;
 
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
+import com.wsntools.iris.modules.comm.collector.TinyOSCollector;
 import com.wsntools.iris.tools.datacollector.receiving.AbstractCollector;
 import com.wsntools.iris.tools.datacollector.receiving.AbstractDecoder;
-import com.wsntools.iris.tools.datacollector.receiving.collector.TinyOSCollector;
 import com.wsntools.iris.tools.datacollector.util.MethodWrapper;
 
 import net.tinyos.message.Message;

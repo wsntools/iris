@@ -77,7 +77,7 @@ public class PanelMeasureInfo extends JPanel implements IRIS_Observer {
 	
 	public void addGUIModuleInfo(IRIS_GUIModule module) {
 		
-		if((module.getRelatedModuleInfos() == null) || (mapModuleToInfopanel.containsKey(module))) return;
+		if((module.getRelatedModuleInfos() == null) || (mapModuleToInfopanel.containsKey(module)) || !module.getModuleSettings().isDisplayingInformation()) return;
 		IRIS_ModuleInfo[] moduleInfos = module.getRelatedModuleInfos();
 		JPanel panelModule = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
 		JPanel panelNames = new JPanel(new GridLayout(moduleInfos.length, 1));

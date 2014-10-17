@@ -15,7 +15,7 @@ public class AliasAttribute implements IRIS_Attribute {
 	public static final int ALIAS_GUI = 2;
 	public static final int ALIAS_FIXED = 3;
 	
-	private Model model;
+	private transient Model model;
 	
 	private String name;
 	private String description;
@@ -30,6 +30,15 @@ public class AliasAttribute implements IRIS_Attribute {
 		setAliasAttributeName(attname);	
 		description = attdesc;
 		mapMeasurementToAttribute = new HashMap<Measurement, IRIS_Attribute>();
+	}
+	 
+	//Constructor for attribute restore from deserialization
+	public AliasAttribute(Model m, AliasAttribute aa) {
+		model = m;
+		this.aliasType = aa.aliasType;
+		this.name = aa.name;
+		this.description = aa.description;
+		this.mapMeasurementToAttribute = aa.mapMeasurementToAttribute;
 	}
 	
 	public void setAliasAttributeName(String newName) {
@@ -83,6 +92,10 @@ public class AliasAttribute implements IRIS_Attribute {
 	public void removeMappingAttribute(Measurement meas) {
 		
 		mapMeasurementToAttribute.remove(meas);
+	}
+	public Map<Measurement, IRIS_Attribute> getAttributeMap() {
+		
+		return mapMeasurementToAttribute;
 	}
 	
 	
@@ -154,6 +167,7 @@ public class AliasAttribute implements IRIS_Attribute {
 
 		return mapMeasurementToAttribute.get(model.getCurrentMeasurement());
 	}
+	
 	
 	public String toString() {
 		return name;

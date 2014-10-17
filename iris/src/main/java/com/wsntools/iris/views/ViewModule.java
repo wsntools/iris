@@ -60,10 +60,13 @@ public class ViewModule extends JFrame {
 			}
 			panelMain.add(module.getGUIPanel(), BorderLayout.CENTER);
 			
-			if(module.getRelatedModuleInfos() != null) {
-				panelMeasureInfo =  new PanelMeasureInfo(model, true);
-				panelMeasureInfo.addGUIModuleInfo(module);					
-				panelMain.add(panelMeasureInfo, BorderLayout.SOUTH);
+			panelMeasureInfo =  new PanelMeasureInfo(model, true);
+			panelMeasureInfo.setVisible(false);
+			panelMain.add(panelMeasureInfo, BorderLayout.SOUTH);
+			
+			if(module.getRelatedModuleInfos() != null && module.getModuleSettings().isDisplayingInformation()) {				
+				panelMeasureInfo.addGUIModuleInfo(module);				
+				panelMeasureInfo.setVisible(true);
 			}	
 			
 			//Windowsettings
@@ -80,6 +83,13 @@ public class ViewModule extends JFrame {
 					(tk.getScreenSize().height / 2 - this.getHeight() / 2));
 			this.setLocation(((this.getX() < 0) ? 0 : this.getX()), ((this.getY() < 0) ? 0 : this.getY()));
 			this.setVisible(true);
+		}
+		
+		public void setMeasureInfo(boolean display) {
+			if(display) panelMeasureInfo.addGUIModuleInfo(guiModule);
+			else panelMeasureInfo.removeGUIModuleInfo(guiModule);
+			
+			panelMeasureInfo.setVisible(display);
 		}
 		
 		public void dispose() {

@@ -3,11 +3,13 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 package com.wsntools.iris.interfaces;
 
+import java.io.Serializable;
+
 import com.wsntools.iris.data.Packet;
 /**
  * @author Sascha Jungen
  */
-public interface IRIS_Attribute {
+public interface IRIS_Attribute extends Serializable {
 
 	
 	public String getAttributeName();

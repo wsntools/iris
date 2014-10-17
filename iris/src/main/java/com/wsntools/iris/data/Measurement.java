@@ -6,6 +6,7 @@ package com.wsntools.iris.data;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -21,9 +22,8 @@ import com.wsntools.iris.interfaces.IRIS_Attribute;
  * @author Sascha Jungen, Ramin Soleamyni
  * 
  */
-public class Measurement {
+public class Measurement implements Serializable {
 
-	private IRIS_Attribute yAxis = null;
 	private int measure_nr;
 	private String measure_name;
 
@@ -97,16 +97,6 @@ public class Measurement {
 		return result;
 	}
 
-	public void setYAxis(IRIS_Attribute yAxis) {
-		// System.out.println("set y-axis to: "+yAxis.getAttributeName());
-
-		this.yAxis = yAxis;
-	}
-
-	public IRIS_Attribute getYAxis() {
-		return yAxis;
-	}
-
 	// Getter
 	public int getMeasureNumber() {
 
@@ -173,26 +163,6 @@ public class Measurement {
 		num = 0;
 		for (int i = 0; i < attributes.size(); i++) {
 			if (attributes.get(i).isNormalAttribute()) {
-				res[num++] = attributes.get(i);
-			}
-		}
-		return res;
-	}
-
-	// Returns all non-function attributes
-	public IRIS_Attribute[] getNonFunctionalAttributes() {
-
-		IRIS_Attribute[] res;
-		int num = 0;
-		for (int i = 0; i < attributes.size(); i++) {
-			if (!attributes.get(i).isFunctionAttribute()) {
-				num++;
-			}
-		}
-		res = new IRIS_Attribute[num];
-		num = 0;
-		for (int i = 0; i < attributes.size(); i++) {
-			if (!attributes.get(i).isFunctionAttribute()) {
 				res[num++] = attributes.get(i);
 			}
 		}
@@ -391,7 +361,7 @@ public class Measurement {
 	// Setter
 	public void setMeasureName(String name) {
 
-		if (name != null && !name.equals("")) {
+		if (name != null && !name.isEmpty()) {
 			measure_name = name;
 		} else {
 			measure_name = "Measure " + measure_nr;

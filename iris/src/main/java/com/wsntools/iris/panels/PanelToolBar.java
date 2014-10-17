@@ -156,11 +156,7 @@ public class PanelToolBar extends JPanel implements IRIS_Observer {
 						"New Measurement", JOptionPane.INFORMATION_MESSAGE,
 						null, null, ("Measurement " + model.getMeasureCount()));
 				// If the progress is aborted, stop creating a new function
-				name=name.trim();
 				if (name == null) return;
-				if (name.isEmpty()) {
-					name = "Measurement " + model.getNextMeasurementNumber();
-				}
 				name = Tools.checkStringForValidInput(name);
 				if (name == null) {
 					JOptionPane.showMessageDialog(model.getCurrentlyFocusedWindow(),

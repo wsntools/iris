@@ -96,7 +96,7 @@ public class GUI_NetworkCommunication extends IRIS_GUIModule {
 
 
 	private static final String[] menuBarEntries =
-		{ "Import Messages", "Import Script", "Import C-Listener Dump", "Decode Package", "Export Messages", "Export Script"/*, "Start Quickdump", "Stop Quickdump" */};
+		{ "Import Messages", "Import Script", "Import C-Listener Dump", "Decode Package", "Write Script", "Export Messages", "Export Script"/*, "Start Quickdump", "Stop Quickdump" */};
 	@Override
 	public String[] getRelatedMenuBarEntries() {		
 		return menuBarEntries;
@@ -131,16 +131,20 @@ public class GUI_NetworkCommunication extends IRIS_GUIModule {
 			else if(name.equals(menuBarEntries[3])) {
 				model.openPackageDecoder();
 			}
-			//Export Messages
+			//Write Script
 			else if(name.equals(menuBarEntries[4])) {
+				SimpleScriptExecuter.openGUI(model.getCurrentMeasurement());
+			}
+			//Export Messages
+			else if(name.equals(menuBarEntries[5])) {
 				SaveAndLoad.saveMessages(model);
 			}
 			//Export Script
-			else if(name.equals(menuBarEntries[5])) {
+			else if(name.equals(menuBarEntries[6])) {
 				SaveAndLoad.saveScript(model, SimpleScriptExecuter.getScriptText());
 			}
 			/*//Start Quickdump
-			else if(name.equals(menuBarEntries[6])) {
+			else if(name.equals(menuBarEntries[7])) {
 				DataCollector collector = model.getDataCollector();
 				if (collector == null) {
 					model.setNewDataCollector();
@@ -150,7 +154,7 @@ public class GUI_NetworkCommunication extends IRIS_GUIModule {
 				collector.setQuickDump(true);
 			}
 			//Stop Quickdump
-			else if(name.equals(menuBarEntries[7])) {
+			else if(name.equals(menuBarEntries[8])) {
 				DataCollector collector = model.getDataCollector();
 				if (collector != null) {
 					collector.setActivation(true);

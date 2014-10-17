@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 
 import com.wsntools.iris.data.Model;
 import com.wsntools.iris.dialogues.DiaSelectGUI;
-import com.wsntools.iris.extensions.RMT_MenuBar;
+import com.wsntools.iris.extensions.IrisMenuBar;
 import com.wsntools.iris.interfaces.IRIS_GUIModule;
 import com.wsntools.iris.panels.PanelMeasureInfo;
 import com.wsntools.iris.panels.PanelToolBar;
@@ -44,7 +44,7 @@ public class ViewMain extends JFrame {
 	//TODO Add also Function Window
 	
 	//--Menubar--
-	private RMT_MenuBar menuBar;
+	private IrisMenuBar menuBar;
 
 	//--Panel--
 	private JPanel panelMain = new JPanel(new BorderLayout());
@@ -72,7 +72,7 @@ public class ViewMain extends JFrame {
 		panelMeasureInfo = new PanelMeasureInfo(model, false);
 
 		//Menubar
-		menuBar = new RMT_MenuBar(model);
+		menuBar = new IrisMenuBar(model);
 		this.setJMenuBar(menuBar);
 
 		//Paneldesign
@@ -170,13 +170,14 @@ public class ViewMain extends JFrame {
 				else {
 					panelGUIElements.add(gm.getGUIPanel());
 				}
-				menuBar.addGUIModuleMenuBar(gm);
+				menuBar.addGUIModuleMenuBar(gm);				
 				panelMeasureInfo.addGUIModuleInfo(gm);
 			}
 		}
 		
 		//Check unchanged modules
 		for(IRIS_GUIModule gm: unchangedModules) {
+			//Switch from window to integration or the other way around
 			if(gm.getModuleSettings().isWindowed() && (guiSubframes.get(gm) == null)) {
 				guiSubframes.put(gm, new ViewModule(model, gm));
 				panelUpper.remove(gm.getGUIPanel());
@@ -195,6 +196,15 @@ public class ViewMain extends JFrame {
 				}
 				menuBar.addGUIModuleMenuBar(gm);
 				panelMeasureInfo.addGUIModuleInfo(gm);
+			}
+			
+			//Also adjust measure info
+			if(gm.getModuleSettings().isWindowed()) {
+				guiSubframes.get(gm).setMeasureInfo(gm.getModuleSettings().isDisplayingInformation());
+			}
+			else {
+				if(gm.getModuleSettings().isDisplayingInformation()) panelMeasureInfo.addGUIModuleInfo(gm);
+				else panelMeasureInfo.removeGUIModuleInfo(gm);
 			}
 		}
 		displayedModules.clear();

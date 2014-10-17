@@ -1,4 +1,4 @@
-package com.wsntools.iris.tools.datacollector.sending.encoder;
+package com.wsntools.iris.modules.comm.encoder;
 
 import java.awt.GridLayout;
 import java.lang.reflect.InvocationTargetException;

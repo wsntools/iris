@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.BoxLayout;
@@ -132,10 +133,10 @@ public class DiaMapping extends JDialog {
 		public MappingTile(Model m, String toMap, IRIS_Attribute mapsTo, int number) {
 			
 			labelAttName.setText(toMap);
-			IRIS_Attribute[] normatt = m.getMeasureNormalAttributes();
+			List<IRIS_Attribute> normatt = m.getMeasureAttributesBySpecification(false, false, false, true, false, false);
 			comboMapTo.addItem("(None)");
-			for(int i=0; i<normatt.length; i++) {
-				comboMapTo.addItem(normatt[i].getAttributeName());
+			for(int i=0; i<normatt.size(); i++) {
+				comboMapTo.addItem(normatt.get(i).getAttributeName());
 			}
 			
 			//Get current mapping index

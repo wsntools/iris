@@ -107,9 +107,9 @@ public class DiaSelectMessage extends JDialog {
 			// Apply mapping changes
 			if (ae.getSource().equals(comboSendConfig)) {
 				SendingConfiguration conf = (SendingConfiguration)comboSendConfig.getSelectedItem();
-				labelEncoder.setText(conf.getEncoder().getClass().getName());
-				labelSender.setText(conf.getSender().getClass().getName());
-				labelPort.setText(conf.getPort().getClass().getName());
+				labelEncoder.setText(conf.getEncoder().getClass().getSimpleName());
+				labelSender.setText(conf.getSender().getClass().getSimpleName());
+				labelPort.setText(conf.getPort());
 			}			
 			else if (ae.getSource().equals(butOK)) {		
 				selected = (SendingConfiguration)comboSendConfig.getSelectedItem();

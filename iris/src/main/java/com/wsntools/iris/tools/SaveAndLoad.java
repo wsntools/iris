@@ -45,6 +45,75 @@ public class SaveAndLoad {
 
 	private static final String NODETYPE = "Crossbow Telos Rev.B";
 
+	public static void saveExperiment(Model m) {
+
+		File f = null;
+		JFileChooser fc = new JFileChooser();
+		fc.setCurrentDirectory(new File(Constants.getPathSavesExperiments()));
+		String filename = ("YourExperiment.exp");
+		fc.setSelectedFile(new File(filename));
+		fc.setFileFilter(new UniversalFilter("exp", "*.exp - IRIS Experiment File"));
+		if ((fc.showSaveDialog(m.getView()) == 0)
+				&& (fc.getSelectedFile() != null)) {
+			f = fc.getSelectedFile();
+			if (!f.getName().endsWith(
+					((UniversalFilter) fc.getFileFilter()).prefix)) {
+				f = new File(f + ((UniversalFilter) fc.getFileFilter()).prefix);
+			}
+		} else
+			return;
+		
+		ObjectOutputStream out = null;
+		
+		try {
+			out = new ObjectOutputStream(new FileOutputStream(f));
+			out.writeObject(m.getExperimentData());			
+			out.flush();
+
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(m.getCurrentlyFocusedWindow(),
+					"ERROR: Cannot create file");
+			e.printStackTrace();
+		} finally {
+			try {
+				out.close();
+			} catch (IOException e) {
+			}
+		}
+	}
+	
+	public static void loadExperiment(Model m) {
+
+		File f = null;
+		JFileChooser fc = new JFileChooser();
+		fc.setCurrentDirectory(new File(Constants.getPathSavesExperiments()));
+		String filename = ("YourExperiment.exp");
+		fc.setSelectedFile(new File(filename));
+		fc.setFileFilter(new UniversalFilter("exp", "*.exp - IRIS Experiment File"));
+		if ((fc.showOpenDialog(m.getView()) == 0)
+				&& (fc.getSelectedFiles() != null)) {
+			f = fc.getSelectedFile();
+		} else
+			return;
+		
+		ObjectInputStream in = null;
+		
+		try {
+			in = new ObjectInputStream(new FileInputStream(f));
+			List<Object> data = (List<Object>) in.readObject();
+			m.setExperimentData(data);
+		} catch (IOException | ClassNotFoundException e) {
+			JOptionPane.showMessageDialog(m.getCurrentlyFocusedWindow(),
+					"ERROR: Cannot create file");
+			e.printStackTrace();
+		} finally {
+			try {
+				in.close();
+			} catch (IOException e) {
+			}
+		}
+	}
+	
 	public static void saveToXML(Model m) {
 
 		File f = null;
@@ -118,7 +187,7 @@ public class SaveAndLoad {
 			out.newLine();
 
 			makeGap(gap, out);
-			out.write("<description>" + "RMT - " + meas.getMeasureName()
+			out.write("<description>" + "IRIS - " + meas.getMeasureName()
 					+ "</description>");
 			out.newLine();
 

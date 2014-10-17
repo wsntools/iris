@@ -152,15 +152,20 @@ public class PanelCommunication extends JPanel implements IRIS_Observer {
 				}
 				else {
 					SendingConfiguration conf = DiaSelectMessage.showMessageSelectionWindow(model, configs);
-					sendSuccess = model.sendConfiguration(conf);
+					if(conf != null) {
+						sendSuccess = model.sendConfiguration(conf);
+					}
+					else {
+						sendSuccess = false;
+					}
 				}
 				
 				//Status report
 				if(sendSuccess) {
-					JOptionPane.showConfirmDialog(model.getCurrentlyFocusedWindow(), "Message has been sent", "IRIS - Send Success", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(model.getCurrentlyFocusedWindow(), "Message has been sent", "IRIS - Sending Successful", JOptionPane.INFORMATION_MESSAGE);
 				}
 				else {
-					JOptionPane.showConfirmDialog(model.getCurrentlyFocusedWindow(), "Message has NOT been sent", "IRIS - Send Fail", JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(model.getCurrentlyFocusedWindow(), "Message has NOT been sent", "IRIS - Sending Failed", JOptionPane.ERROR_MESSAGE);
 				}
 				/*
 				logger.info("trying to send Message: "
